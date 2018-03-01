@@ -1,0 +1,5 @@
+amalgomators:
+  ptimports:
+    config: ptimports.yml
+    output-dir: ptimports/generated_src
+    pkg: amalgomated
