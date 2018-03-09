@@ -32,7 +32,7 @@ import (
 	"github.com/palantir/godel-format-plugin/assetapi"
 	"github.com/spf13/cobra"
 
-	"github.com/palantir/godel-format-asset-ptimports/ptimports/generated_src"
+	"github.com/palantir/godel-format-asset-ptimports/generated_src"
 )
 
 const assetName = "ptimports"
@@ -44,5 +44,5 @@ func main() {
 			return assetapi.RunAmalgomatedFormatCommand(assetName, args, assetapi.ListFlagVal, nil, cmd.OutOrStdout(), cmd.OutOrStderr())
 		},
 	)
-	assetapi.AmalgomatedMain(assetName, rootCmd, amalgomated.Instance())
+	assetapi.AmalgomatedMain(assetName, rootCmd, amalgomatedformatter.Instance())
 }

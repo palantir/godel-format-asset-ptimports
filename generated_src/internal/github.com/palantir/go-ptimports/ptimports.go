@@ -22,7 +22,7 @@ package amalgomated
 
 import (
 	"bytes"
-	"github.com/palantir/godel-format-asset-ptimports/ptimports/generated_src/internal/github.com/palantir/go-ptimports/amalgomated_flag"
+	"github.com/palantir/godel-format-asset-ptimports/generated_src/internal/github.com/palantir/go-ptimports/amalgomated_flag"
 	"fmt"
 	"go/scanner"
 	"io"
@@ -32,7 +32,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/palantir/godel-format-asset-ptimports/ptimports/generated_src/internal/github.com/palantir/go-ptimports/ptimports"
+	"github.com/palantir/godel-format-asset-ptimports/generated_src/internal/github.com/palantir/go-ptimports/ptimports"
 )
 
 var (

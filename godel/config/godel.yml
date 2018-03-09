@@ -3,7 +3,7 @@ plugins:
     - https://palantir.bintray.com/releases/{{GroupPath}}/{{Product}}/{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz
   plugins:
     - locator:
-        id: "com.palantir:amalgomate-plugin:1.2.0"
+        id: "com.palantir:amalgomate-plugin:1.3.0"
 exclude:
   names:
     - "\\..+"
