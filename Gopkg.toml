@@ -23,6 +23,10 @@
 required = ["github.com/palantir/go-ptimports"]
 
 [[constraint]]
+  name = "github.com/palantir/go-ptimports"
+  version = "1.0.0"
+
+[[constraint]]
   branch = "master"
   name = "github.com/palantir/godel-format-plugin"
 
