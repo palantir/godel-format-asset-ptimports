@@ -24,7 +24,7 @@ required = ["github.com/palantir/go-ptimports"]
 
 [[constraint]]
   name = "github.com/palantir/go-ptimports"
-  version = "1.0.0"
+  version = "2.1.0"
 
 [[constraint]]
   branch = "master"
