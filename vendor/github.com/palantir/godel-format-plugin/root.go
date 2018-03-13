@@ -33,7 +33,7 @@ var (
 
 var rootCmd = &cobra.Command{
 	Use:   "format-plugin [flags] [files]",
-	Short: "Run format on all project files",
+	Short: "Format specified files (if no files are specified, format all project Go files)",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var exclude matcher.Matcher
 		if godelConfigFileFlagVal != "" {

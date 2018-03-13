@@ -71,6 +71,74 @@ import (
 				},
 			},
 			{
+				Name: "groups imports",
+				Specs: []gofiles.GoFileSpec{
+					{
+						RelPath: "foo.go",
+						Src: `package foo
+
+import _ "fmt"
+import _ "github.com/org/repo"
+`,
+					},
+				},
+				ConfigFiles: configFiles,
+				WantFiles: map[string]string{
+					"foo.go": `package foo
+
+import (
+	_ "fmt"
+
+	_ "github.com/org/repo"
+)
+`,
+				},
+			},
+			{
+				Name: "removes unused imports",
+				Specs: []gofiles.GoFileSpec{
+					{
+						RelPath: "foo.go",
+						Src: `package foo
+
+import "fmt"
+`,
+					},
+				},
+				ConfigFiles: configFiles,
+				WantFiles: map[string]string{
+					"foo.go": `package foo
+`,
+				},
+			},
+			{
+				Name: "adds required imports",
+				Specs: []gofiles.GoFileSpec{
+					{
+						RelPath: "foo.go",
+						Src: `package foo
+
+func Foo() {
+	fmt.Println("foo")
+}
+`,
+					},
+				},
+				ConfigFiles: configFiles,
+				WantFiles: map[string]string{
+					"foo.go": `package foo
+
+import (
+	"fmt"
+)
+
+func Foo() {
+	fmt.Println("foo")
+}
+`,
+				},
+			},
+			{
 				Name: "verify does not modify files and prints unformatted files",
 				Specs: []gofiles.GoFileSpec{
 					{

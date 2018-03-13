@@ -34,8 +34,8 @@
 [[projects]]
   name = "github.com/palantir/go-ptimports"
   packages = [".","ptimports"]
-  revision = "15bd72d6234062b9e55a6701d7df992cd19f9938"
-  version = "v1.0.0"
+  revision = "749e5e140d3212e17e10bcacf39241c5a0ab192b"
+  version = "v2.1.0"
 
 [[projects]]
   branch = "master"
@@ -44,15 +44,15 @@
   revision = "23cdea0b00851e6cbdc14f50676c43ba26b47894"
 
 [[projects]]
+  branch = "master"
   name = "github.com/palantir/godel-format-plugin"
   packages = ["assetapi","formattester"]
-  revision = "75e30e9a4633647396409138cffd08c749311308"
-  version = "v1.0.0-rc1"
+  revision = "116b8e0204bc24679e3333db7dba42a75ba1fd0a"
 
 [[projects]]
   branch = "master"
   name = "github.com/palantir/pkg"
-  packages = ["cobracli","matcher","pkgpath","specdir"]
+  packages = ["cobracli","matcher","specdir"]
   revision = "b59de130c1302a3c591efcfb0fd575727f53d0d2"
 
 [[projects]]
@@ -112,6 +112,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "6c49cab119349b7b88116402c5718aa9a550f5a36df1580591e0a95fda844e6f"
+  inputs-digest = "e7101b5f58e4b3dfb9d591688b4c98ba3913e0f6580977947cd4b1adb859e3fc"
   solver-name = "gps-cdcl"
   solver-version = 1
