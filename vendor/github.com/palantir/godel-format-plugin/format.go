@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"os/exec"
 	"path"
 	"path/filepath"
 	"strings"
@@ -27,10 +26,10 @@ import (
 	"github.com/palantir/pkg/matcher"
 	"github.com/pkg/errors"
 
-	"github.com/palantir/godel-format-plugin/assetapi"
+	"github.com/palantir/godel-format-plugin/formatter"
 )
 
-func runFormat(assets []string, assetArgs map[string]formatterConfig, projectDir string, exclude matcher.Matcher, verify bool, providedFiles []string, stdout, stderr io.Writer) error {
+func runFormat(formatters []formatter.Formatter, projectDir string, exclude matcher.Matcher, verify bool, providedFiles []string, stdout io.Writer) error {
 	var files []string
 	if len(providedFiles) == 0 {
 		matchingFiles, err := allMatchingFilesInDir(projectDir, exclude)
@@ -58,31 +57,13 @@ func runFormat(assets []string, assetArgs map[string]formatterConfig, projectDir
 	}
 
 	var outputBuf bytes.Buffer
-	for _, currAsset := range assets {
-		var args []string
-		if verify {
-			args = append(args, "--"+assetapi.ListFlagName)
-		}
-
-		if nameOutput, err := exec.Command(currAsset, "--"+assetapi.NameFlagName).CombinedOutput(); err == nil {
-			assetName := strings.TrimSpace(string(nameOutput))
-			if formatterCfg := assetArgs[assetName]; len(formatterCfg.Args) > 0 {
-				args = append(args, formatterCfg.Args...)
-			}
-		}
-		args = append(args, files...)
-
-		cmd := exec.Command(currAsset, args...)
-		cmd.Stdout = stdout
-		cmd.Stderr = stderr
-		cmd.Stdin = os.Stdin
-
+	for _, currFormatter := range formatters {
+		formatterOutput := stdout
 		// if in "verify" mode, collect output in buffer rather than streaming to output
 		if verify {
-			cmd.Stdout = &outputBuf
-			cmd.Stderr = &outputBuf
+			formatterOutput = &outputBuf
 		}
-		if err := cmd.Run(); err != nil {
+		if err := currFormatter.Format(files, verify, formatterOutput); err != nil {
 			if verify {
 				// if in "verify" mode, output has not been streamed, so print to stdout
 				fmt.Fprint(stdout, outputBuf.String())

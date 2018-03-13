@@ -14,12 +14,6 @@
   version = "v1.0"
 
 [[projects]]
-  branch = "master"
-  name = "github.com/kardianos/osext"
-  packages = ["."]
-  revision = "ae77be60afb1dcacde03767a8c37337fad28ac14"
-
-[[projects]]
   name = "github.com/mattn/go-runewidth"
   packages = ["."]
   revision = "9e777a8366cce605130a531d2cd6363d07ad7317"
@@ -94,6 +88,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d9caca794f99fc22a9bbc912d6e72b54456d3aa81eec4be04e9dea6365fb61c9"
+  inputs-digest = "e178d247774fcfd3581d7826ea3f27fca8949475317dbbeca55c861cc7f9135f"
   solver-name = "gps-cdcl"
   solver-version = 1

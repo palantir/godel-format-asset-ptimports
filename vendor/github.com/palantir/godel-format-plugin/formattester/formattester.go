@@ -109,9 +109,9 @@ func RunAssetFormatTest(t *testing.T,
 			runPluginCleanup, err := pluginapitester.RunAsset(pluginsParam, []string{assetPath}, "format", args, projectDir, false, outputBuf)
 			defer runPluginCleanup()
 			if tc.WantError {
-				require.EqualError(t, err, "", "Case %d: %s", i, tc.Name)
+				require.EqualError(t, err, "", "Case %d: %s\nOutput: %s", i, tc.Name, outputBuf.String())
 			} else {
-				require.NoError(t, err, "Case %d: %s", i, tc.Name)
+				require.NoError(t, err, "Case %d: %s\nOutput: %s", i, tc.Name, outputBuf.String())
 			}
 			var wantOutput string
 			if tc.WantOutput != nil {

@@ -15,20 +15,27 @@
 package main
 
 import (
-	"github.com/palantir/godel-format-plugin/assetapi"
-	"github.com/spf13/cobra"
+	"os"
+
+	"github.com/palantir/amalgomate/amalgomated"
+	"github.com/palantir/godel-format-plugin/formatter"
+	"github.com/palantir/pkg/cobracli"
 
 	"github.com/palantir/godel-format-asset-ptimports/generated_src"
+	"github.com/palantir/godel-format-asset-ptimports/ptimports"
 )
 
 const assetName = "ptimports"
 
+var debugFlagVal bool
+
 func main() {
-	rootCmd := assetapi.RootCommand(
-		assetName,
-		func(cmd *cobra.Command, args []string) error {
-			return assetapi.RunAmalgomatedFormatCommand(assetName, args, assetapi.ListFlagVal, []string{"--refactor"}, cmd.OutOrStdout(), cmd.OutOrStderr())
-		},
-	)
-	assetapi.AmalgomatedMain(assetName, rootCmd, amalgomatedformatter.Instance())
+	if len(os.Args) >= 2 && os.Args[1] == amalgomated.ProxyCmdPrefix+assetName {
+		os.Args = append(os.Args[:1], os.Args[2:]...)
+		amalgomatedformatter.Instance().Run(assetName)
+		os.Exit(0)
+	}
+
+	rootCmd := formatter.AssetRootCmd(ptimports.Creator(), "")
+	os.Exit(cobracli.ExecuteWithDefaultParamsWithVersion(rootCmd, &debugFlagVal, ""))
 }

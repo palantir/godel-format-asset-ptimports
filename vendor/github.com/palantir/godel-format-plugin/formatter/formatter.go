@@ -12,5 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package integration contains the integration tests for gödel.
-package integration
+package formatter
+
+import (
+	"io"
+)
+
+type Formatter interface {
+	// TypeName returns the type of this Formatter.
+	TypeName() (string, error)
+
+	// Format runs the format operation on the provided files. If "list" is true, then the files that would be changed
+	// are printed to stdout rather than formatting the files.
+	Format(files []string, list bool, stdout io.Writer) error
+}
+
+type Factory interface {
+	NewFormatter(typeName string, cfgYMLBytes []byte) (Formatter, error)
+	FormatterTypes() []string
+}
