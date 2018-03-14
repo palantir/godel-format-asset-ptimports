@@ -25,7 +25,7 @@ import (
 )
 
 const (
-	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.0.0-rc1"
+	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.0.0-rc2"
 	formatPluginResolver = "https://palantir.bintray.com/releases/{{GroupPath}}/{{Product}}/{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz"
 
 	godelYML = `exclude:
@@ -135,6 +135,95 @@ import (
 func Foo() {
 	fmt.Println("foo")
 }
+`,
+				},
+			},
+			{
+				Name: "simplifies code",
+				Specs: []gofiles.GoFileSpec{
+					{
+						RelPath: "foo.go",
+						Src: `package foo
+
+func Foo() {
+	for i, _ := range []string{} {
+		_ = i
+	}
+}
+`,
+					},
+				},
+				ConfigFiles: configFiles,
+				WantFiles: map[string]string{
+					"foo.go": `package foo
+
+func Foo() {
+	for i := range []string{} {
+		_ = i
+	}
+}
+`,
+				},
+			},
+			{
+				Name: "does not simplify code based on configuration",
+				Specs: []gofiles.GoFileSpec{
+					{
+						RelPath: "foo.go",
+						Src: `package foo
+
+func Foo() {
+	for i, _ := range []string{} {
+		_ = i
+	}
+}
+`,
+					},
+				},
+				ConfigFiles: map[string]string{
+					"godel/config/godel.yml": godelYML,
+					"godel/config/format.yml": `
+formatters:
+  ptimports:
+    config:
+      skip-simplify: true
+`,
+				},
+				WantFiles: map[string]string{
+					"foo.go": `package foo
+
+func Foo() {
+	for i, _ := range []string{} {
+		_ = i
+	}
+}
+`,
+				},
+			},
+			{
+				Name: "does not refactor imports to block style based on configuration",
+				Specs: []gofiles.GoFileSpec{
+					{
+						RelPath: "foo.go",
+						Src: `package foo
+
+import _ "fmt"
+`,
+					},
+				},
+				ConfigFiles: map[string]string{
+					"godel/config/godel.yml": godelYML,
+					"godel/config/format.yml": `
+formatters:
+  ptimports:
+    config:
+      skip-refactor: true
+`,
+				},
+				WantFiles: map[string]string{
+					"foo.go": `package foo
+
+import _ "fmt"
 `,
 				},
 			},

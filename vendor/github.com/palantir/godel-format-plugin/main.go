@@ -21,8 +21,6 @@ import (
 	"github.com/palantir/pkg/cobracli"
 )
 
-var debugFlagVal bool
-
 func main() {
 	if ok := pluginapi.InfoCmd(os.Args, os.Stdout, pluginInfo); ok {
 		return

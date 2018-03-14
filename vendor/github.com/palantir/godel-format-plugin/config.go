@@ -42,5 +42,5 @@ type formatConfig struct {
 }
 
 type formatterConfig struct {
-	Args []string `yaml:"args"`
+	Config *yaml.MapSlice `yaml:"config"`
 }

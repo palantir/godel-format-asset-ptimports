@@ -20,15 +20,22 @@ import (
 	"github.com/palantir/godel/framework/godellauncher"
 	"github.com/palantir/godel/framework/pluginapi"
 	"github.com/palantir/pkg/matcher"
+	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v2"
+
+	"github.com/palantir/godel-format-plugin/formatter"
 )
 
 var (
+	debugFlagVal            bool
 	projectDirFlagVal       string
 	godelConfigFileFlagVal  string
 	formatConfigFileFlagVal string
 	verifyFlagVal           bool
 	assetsFlagVal           []string
+
+	cliFormatterFactory formatter.Factory
 )
 
 var rootCmd = &cobra.Command{
@@ -44,24 +51,41 @@ var rootCmd = &cobra.Command{
 			exclude = cfg.Exclude.Matcher()
 		}
 
-		var assetArgs map[string]formatterConfig
+		var formatters []formatter.Formatter
 		if formatConfigFileFlagVal != "" {
 			cfg, err := readFormatConfigFromFile(formatConfigFileFlagVal)
 			if err != nil {
 				return err
 			}
-			assetArgs = cfg.Formatters
+			for _, currType := range cliFormatterFactory.FormatterTypes() {
+				currCfg := cfg.Formatters[currType]
+
+				var cfgBytes []byte
+				if currCfg.Config != nil {
+					bytes, err := yaml.Marshal(currCfg.Config)
+					if err != nil {
+						return errors.Wrapf(err, "failed to marshal configuration YAML for formatter %s", currType)
+					}
+					cfgBytes = bytes
+				}
+				formatter, err := cliFormatterFactory.NewFormatter(currType, cfgBytes)
+				if err != nil {
+					return err
+				}
+				formatters = append(formatters, formatter)
+			}
 		}
 
 		// no formatters specified
 		if len(assetsFlagVal) == 0 {
 			return nil
 		}
-		return runFormat(assetsFlagVal, assetArgs, projectDirFlagVal, exclude, verifyFlagVal, args, cmd.OutOrStdout(), cmd.OutOrStderr())
+		return runFormat(formatters, projectDirFlagVal, exclude, verifyFlagVal, args, cmd.OutOrStdout())
 	},
 }
 
 func init() {
+	pluginapi.AddDebugPFlagPtr(rootCmd.PersistentFlags(), &debugFlagVal)
 	pluginapi.AddGodelConfigPFlagPtr(rootCmd.PersistentFlags(), &godelConfigFileFlagVal)
 	pluginapi.AddConfigPFlagPtr(rootCmd.PersistentFlags(), &formatConfigFileFlagVal)
 	pluginapi.AddProjectDirPFlagPtr(rootCmd.PersistentFlags(), &projectDirFlagVal)
@@ -70,4 +94,16 @@ func init() {
 		panic(err)
 	}
 	rootCmd.PersistentFlags().BoolVar(&verifyFlagVal, "verify", false, "verify files match formatting without applying formatting")
+
+	rootCmd.PersistentPreRunE = func(cmd *cobra.Command, args []string) error {
+		assetFormatters, err := formatter.AssetFormatterCreators(assetsFlagVal...)
+		if err != nil {
+			return err
+		}
+		cliFormatterFactory, err = formatter.NewFormatterFactory(assetFormatters...)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
 }

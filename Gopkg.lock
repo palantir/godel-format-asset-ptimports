@@ -32,10 +32,16 @@
   revision = "b64318170fdef93b4462420e0badef8050dbb7ec"
 
 [[projects]]
+  name = "github.com/palantir/amalgomate"
+  packages = ["amalgomated"]
+  revision = "926513e8d502edf93e1a55662d787fd8bafe4d7f"
+  version = "1.3.0"
+
+[[projects]]
   name = "github.com/palantir/go-ptimports"
   packages = [".","ptimports"]
-  revision = "749e5e140d3212e17e10bcacf39241c5a0ab192b"
-  version = "v2.1.0"
+  revision = "84f65e38728c28d6cc0328f77ad0f2c7ac98aec5"
+  version = "v2.2.0"
 
 [[projects]]
   branch = "master"
@@ -46,8 +52,8 @@
 [[projects]]
   branch = "master"
   name = "github.com/palantir/godel-format-plugin"
-  packages = ["assetapi","formattester"]
-  revision = "116b8e0204bc24679e3333db7dba42a75ba1fd0a"
+  packages = ["formatter","formattester"]
+  revision = "4739e939311f061369e0b572683aa7baf8954de2"
 
 [[projects]]
   branch = "master"
@@ -112,6 +118,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "e7101b5f58e4b3dfb9d591688b4c98ba3913e0f6580977947cd4b1adb859e3fc"
+  inputs-digest = "8b29a2508517fd112ca7b3510d14fd054dc7536e2375c499e511f5bf2e6a32aa"
   solver-name = "gps-cdcl"
   solver-version = 1

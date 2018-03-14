@@ -19,23 +19,27 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"gopkg.in/yaml.v2"
 )
 
 func TestReadConfig(t *testing.T) {
 	in := `
 formatters:
-  gofmt:
-    args:
-      - "-s"
+  ptimports:
+    config:
+      no-simplify: true
 `
 	got, err := readFormatConfig([]byte(in))
 	require.NoError(t, err)
 
 	assert.Equal(t, formatConfig{
 		Formatters: map[string]formatterConfig{
-			"gofmt": {
-				Args: []string{
-					"-s",
+			"ptimports": {
+				Config: &yaml.MapSlice{
+					yaml.MapItem{
+						Key:   "no-simplify",
+						Value: true,
+					},
 				},
 			},
 		},
