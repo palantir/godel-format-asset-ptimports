@@ -19,11 +19,13 @@ import (
 
 	"github.com/palantir/godel/framework/pluginapi"
 	"github.com/palantir/pkg/cobracli"
+
+	"github.com/palantir/godel-format-plugin/cmd"
 )
 
 func main() {
-	if ok := pluginapi.InfoCmd(os.Args, os.Stdout, pluginInfo); ok {
+	if ok := pluginapi.InfoCmd(os.Args, os.Stdout, cmd.PluginInfo); ok {
 		return
 	}
-	os.Exit(cobracli.ExecuteWithDefaultParamsWithVersion(rootCmd, &debugFlagVal, ""))
+	os.Exit(cobracli.ExecuteWithDefaultParamsWithVersion(cmd.RootCmd, &cmd.DebugFlagVal, ""))
 }

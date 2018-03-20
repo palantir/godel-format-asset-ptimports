@@ -29,5 +29,6 @@ type Formatter interface {
 
 type Factory interface {
 	NewFormatter(typeName string, cfgYMLBytes []byte) (Formatter, error)
+	ConfigUpgrader(typeName string) (ConfigUpgrader, error)
 	FormatterTypes() []string
 }

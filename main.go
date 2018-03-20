@@ -36,6 +36,6 @@ func main() {
 		os.Exit(0)
 	}
 
-	rootCmd := formatter.AssetRootCmd(ptimports.Creator(), "")
+	rootCmd := formatter.AssetRootCmd(ptimports.Creator(), ptimports.UpgradeConfig, "")
 	os.Exit(cobracli.ExecuteWithDefaultParamsWithVersion(rootCmd, &debugFlagVal, ""))
 }

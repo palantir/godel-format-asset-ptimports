@@ -17,11 +17,12 @@ package formatter
 import (
 	"encoding/json"
 
+	"github.com/palantir/godel/framework/pluginapi"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )
 
-func AssetRootCmd(creator Creator, short string) *cobra.Command {
+func AssetRootCmd(creator Creator, upgradeConfigFn pluginapi.UpgradeConfigFn, short string) *cobra.Command {
 	name := creator.TypeName()
 	rootCmd := &cobra.Command{
 		Use:   name,
@@ -32,6 +33,7 @@ func AssetRootCmd(creator Creator, short string) *cobra.Command {
 	rootCmd.AddCommand(newNameCmd(name))
 	rootCmd.AddCommand(newVerifyConfigCmd(creatorFn))
 	rootCmd.AddCommand(newRunFormatCmd(creatorFn))
+	rootCmd.AddCommand(pluginapi.CobraUpgradeConfigCmd(upgradeConfigFn))
 
 	return rootCmd
 }
