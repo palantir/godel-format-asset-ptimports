@@ -25,7 +25,6 @@ import (
 
 	"github.com/nmiyake/pkg/dirs"
 	"github.com/nmiyake/pkg/gofiles"
-	"github.com/palantir/godel/framework/artifactresolver"
 	"github.com/palantir/godel/framework/pluginapitester"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -46,8 +45,8 @@ type AssetTestCase struct {
 // RunAssetFormatTest tests the "format" operation using the provided asset. Resolves the format plugin using the
 // provided locator and resolver, provides it with the asset and invokes the "format" command for the specified asset.
 func RunAssetFormatTest(t *testing.T,
-	formatPluginLocator, formatPluginResolver string,
-	assetPath string,
+	pluginProvider pluginapitester.PluginProvider,
+	assetProvider pluginapitester.AssetProvider,
 	testCases []AssetTestCase,
 ) {
 	tmpDir, cleanup, err := dirs.TempDir("", "")
@@ -78,15 +77,6 @@ func RunAssetFormatTest(t *testing.T,
 		require.NoError(t, err)
 
 		outputBuf := &bytes.Buffer{}
-		pluginCfg := artifactresolver.LocatorWithResolverConfig{
-			Locator: artifactresolver.LocatorConfig{
-				ID: formatPluginLocator,
-			},
-			Resolver: formatPluginResolver,
-		}
-		pluginsParam, err := pluginCfg.ToParam()
-		require.NoError(t, err)
-
 		func() {
 			wd, err := os.Getwd()
 			require.NoError(t, err)
@@ -106,7 +96,15 @@ func RunAssetFormatTest(t *testing.T,
 			if tc.Verify {
 				args = append(args, "--verify")
 			}
-			runPluginCleanup, err := pluginapitester.RunAsset(pluginsParam, []string{assetPath}, "format", args, projectDir, false, outputBuf)
+			runPluginCleanup, err := pluginapitester.RunPlugin(
+				pluginProvider,
+				[]pluginapitester.AssetProvider{assetProvider},
+				"format",
+				args,
+				projectDir,
+				false,
+				outputBuf,
+			)
 			defer runPluginCleanup()
 			if tc.WantError {
 				require.EqualError(t, err, "", "Case %d: %s\nOutput: %s", i, tc.Name, outputBuf.String())

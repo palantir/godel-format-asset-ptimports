@@ -31,8 +31,13 @@ func Creator() formatter.Creator {
 	return formatter.NewCreator(
 		TypeName,
 		func(cfgYML []byte) (formatter.Formatter, error) {
+			// translate old configuration into new configuration if needed
+			upgradedConfig, err := UpgradeConfig(cfgYML)
+			if err != nil {
+				return nil, errors.Wrapf(err, "failed to load configuration")
+			}
 			var formatCfg Config
-			if err := yaml.Unmarshal(cfgYML, &formatCfg); err != nil {
+			if err := yaml.Unmarshal(upgradedConfig, &formatCfg); err != nil {
 				return nil, errors.Wrapf(err, "failed to unmarshal YAML: %q", string(cfgYML))
 			}
 			return &ptimportsFormatter{
@@ -82,9 +87,4 @@ func (f *ptimportsFormatter) Format(files []string, list bool, stdout io.Writer)
 		}
 	}
 	return nil
-}
-
-type Config struct {
-	SkipRefactor bool `yaml:"skip-refactor"`
-	SkipSimplify bool `yaml:"skip-simplify"`
 }

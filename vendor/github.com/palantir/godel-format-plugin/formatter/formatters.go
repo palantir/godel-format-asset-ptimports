@@ -48,8 +48,9 @@ func NewCreator(typeName string, creatorFn CreatorFunction) Creator {
 }
 
 type formatterFactory struct {
-	formatterTypes    []string
-	formatterCreators map[string]CreatorFunction
+	formatterTypes           []string
+	formatterCreators        map[string]CreatorFunction
+	formatterConfigUpgraders map[string]ConfigUpgrader
 }
 
 func (f *formatterFactory) NewFormatter(typeName string, cfgYMLBytes []byte) (Formatter, error) {
@@ -69,21 +70,44 @@ func (f *formatterFactory) FormatterTypes() []string {
 	return f.formatterTypes
 }
 
-func NewFormatterFactory(providedFormatterCreators ...Creator) (Factory, error) {
+func (f *formatterFactory) ConfigUpgrader(typeName string) (ConfigUpgrader, error) {
+	if _, ok := f.formatterCreators[typeName]; !ok {
+		var formatterNames []string
+		for k := range f.formatterCreators {
+			formatterNames = append(formatterNames, k)
+		}
+		sort.Strings(formatterNames)
+		return nil, errors.Errorf("no formatters registered for formatter type %q (registered formatters: %v)", typeName, formatterNames)
+	}
+	upgrader, ok := f.formatterConfigUpgraders[typeName]
+	if !ok {
+		return nil, errors.Errorf("%s is a valid formatter but does not have a config upgrader", typeName)
+	}
+	return upgrader, nil
+}
+
+func NewFormatterFactory(providedFormatterCreators []Creator, providedConfigUpgraders []ConfigUpgrader) (Factory, error) {
 	var formatterTypes []string
 	formatterCreators := make(map[string]CreatorFunction)
 	for _, currCreator := range providedFormatterCreators {
 		formatterTypes = append(formatterTypes, currCreator.TypeName())
 		formatterCreators[currCreator.TypeName()] = currCreator.Creator()
 	}
+	configUpgraders := make(map[string]ConfigUpgrader)
+	for _, currUpgrader := range providedConfigUpgraders {
+		currUpgrader := currUpgrader
+		configUpgraders[currUpgrader.TypeName()] = currUpgrader
+	}
 	return &formatterFactory{
-		formatterTypes:    formatterTypes,
-		formatterCreators: formatterCreators,
+		formatterTypes:           formatterTypes,
+		formatterCreators:        formatterCreators,
+		formatterConfigUpgraders: configUpgraders,
 	}, nil
 }
 
-func AssetFormatterCreators(assetPaths ...string) ([]Creator, error) {
+func AssetFormatterCreators(assetPaths ...string) ([]Creator, []ConfigUpgrader, error) {
 	var formatterCreators []Creator
+	var configUpgraders []ConfigUpgrader
 	formatterNameToAssets := make(map[string][]string)
 	for _, currAssetPath := range assetPaths {
 		currFormatter := assetFormatter{
@@ -91,7 +115,7 @@ func AssetFormatterCreators(assetPaths ...string) ([]Creator, error) {
 		}
 		formatterName, err := currFormatter.TypeName()
 		if err != nil {
-			return nil, errors.Wrapf(err, "failed to determine formatter type name for asset %s", currAssetPath)
+			return nil, nil, errors.Wrapf(err, "failed to determine formatter type name for asset %s", currAssetPath)
 		}
 		formatterNameToAssets[formatterName] = append(formatterNameToAssets[formatterName], currAssetPath)
 		formatterCreators = append(formatterCreators, NewCreator(formatterName,
@@ -102,6 +126,10 @@ func AssetFormatterCreators(assetPaths ...string) ([]Creator, error) {
 				}
 				return &currFormatter, nil
 			}))
+		configUpgraders = append(configUpgraders, &assetConfigUpgrader{
+			typeName:  formatterName,
+			assetPath: currAssetPath,
+		})
 	}
 	var sortedKeys []string
 	for k := range formatterNameToAssets {
@@ -113,7 +141,7 @@ func AssetFormatterCreators(assetPaths ...string) ([]Creator, error) {
 			continue
 		}
 		sort.Strings(formatterNameToAssets[k])
-		return nil, errors.Errorf("formatter type %s provided by multiple assets: %v", k, formatterNameToAssets[k])
+		return nil, nil, errors.Errorf("formatter type %s provided by multiple assets: %v", k, formatterNameToAssets[k])
 	}
-	return formatterCreators, nil
+	return formatterCreators, configUpgraders, nil
 }

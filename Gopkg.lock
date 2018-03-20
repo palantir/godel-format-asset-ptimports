@@ -8,6 +8,24 @@
   version = "v1.1.0"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/dsnet/compress"
+  packages = [".","bzip2","bzip2/internal/sais","internal","internal/errors","internal/prefix"]
+  revision = "cc9eb1d7ad760af14e8f918698f745e80377af4f"
+
+[[projects]]
+  name = "github.com/google/go-github"
+  packages = ["github"]
+  revision = "e48060a28fac52d0f1cb758bc8b87c07bac4a87d"
+  version = "v15.0.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/google/go-querystring"
+  packages = ["query"]
+  revision = "53e6ce116135b80d037921a7fdd5138cf32d7a8a"
+
+[[projects]]
   name = "github.com/inconshreveable/mousetrap"
   packages = ["."]
   revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
@@ -26,10 +44,22 @@
   version = "v0.0.2"
 
 [[projects]]
+  name = "github.com/nmiyake/archiver"
+  packages = ["."]
+  revision = "a075791974ee7d363104fde72b5e009515cc0def"
+  version = "v1.1.1"
+
+[[projects]]
   branch = "develop"
   name = "github.com/nmiyake/pkg"
   packages = ["dirs","errorstringer","gofiles"]
   revision = "b64318170fdef93b4462420e0badef8050dbb7ec"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/nwaples/rardecode"
+  packages = ["."]
+  revision = "e06696f847aeda6f39a8f0b7cdff193b7690aef6"
 
 [[projects]]
   name = "github.com/palantir/amalgomate"
@@ -46,19 +76,19 @@
 [[projects]]
   branch = "master"
   name = "github.com/palantir/godel"
-  packages = ["framework/artifactresolver","framework/builtintasks/installupdate/layout","framework/godel","framework/godellauncher","framework/internal/pathsinternal","framework/pluginapi","framework/pluginapitester","framework/plugins","framework/verifyorder","godelgetter","pkg/osarch","pkg/products"]
-  revision = "23cdea0b00851e6cbdc14f50676c43ba26b47894"
+  packages = ["framework/artifactresolver","framework/builtintasks","framework/builtintasks/checkpath","framework/builtintasks/githooks","framework/builtintasks/githubwiki","framework/builtintasks/idea","framework/builtintasks/installupdate","framework/builtintasks/installupdate/layout","framework/builtintasks/packages","framework/godel","framework/godellauncher","framework/internal/legacyplugins","framework/internal/pathsinternal","framework/pluginapi","framework/pluginapitester","framework/plugins","framework/verifyorder","godelgetter","pkg/osarch","pkg/products","pkg/versionedconfig"]
+  revision = "558312ec532ab8ec819ebc20614f67b69656b448"
 
 [[projects]]
-  branch = "master"
   name = "github.com/palantir/godel-format-plugin"
   packages = ["formatter","formattester"]
-  revision = "4739e939311f061369e0b572683aa7baf8954de2"
+  revision = "6efc20d33202f87a364004805c2f8a5c80b36d39"
+  version = "v1.0.0-rc3"
 
 [[projects]]
   branch = "master"
   name = "github.com/palantir/pkg"
-  packages = ["cobracli","matcher","specdir"]
+  packages = ["cobracli","matcher","pkgpath","specdir"]
   revision = "b59de130c1302a3c591efcfb0fd575727f53d0d2"
 
 [[projects]]
@@ -93,6 +123,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/termie/go-shutil"
+  packages = ["."]
+  revision = "bcacb06fecaeec8dc42af03c87c6949f4a05c74c"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
   revision = "7dca6fe1f43775aa6d1334576870ff63f978f539"
@@ -118,6 +154,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8b29a2508517fd112ca7b3510d14fd054dc7536e2375c499e511f5bf2e6a32aa"
+  inputs-digest = "3c4cf1435ea728d5f9db8f5fe1ab6192743a90052b4449ba0f310f29d4ae9c67"
   solver-name = "gps-cdcl"
   solver-version = 1
