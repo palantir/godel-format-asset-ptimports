@@ -20,12 +20,10 @@ import (
 	"github.com/palantir/pkg/matcher"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
-
-	"github.com/palantir/godel-format-plugin/formatter"
 )
 
 type Param struct {
-	Formatters []formatter.Formatter
+	Formatters []Formatter
 	Exclude    matcher.Matcher
 }
 
@@ -34,7 +32,7 @@ type Config struct {
 	Exclude    matcher.NamesPathsCfg      `yaml:"exclude"`
 }
 
-func (cfg *Config) ToParam(factory formatter.Factory) (Param, error) {
+func (cfg *Config) ToParam(factory Factory) (Param, error) {
 	knownTypes := make(map[string]struct{})
 	for _, formatterType := range factory.FormatterTypes() {
 		knownTypes[formatterType] = struct{}{}
@@ -57,7 +55,7 @@ func (cfg *Config) ToParam(factory formatter.Factory) (Param, error) {
 		return Param{}, errors.Errorf("formatters %v not recognized -- known formatters are %v", unknownFormatters, factory.FormatterTypes())
 	}
 
-	var formatters []formatter.Formatter
+	var formatters []Formatter
 	for _, formatterName := range factory.FormatterTypes() {
 		var cfgBytes []byte
 		if formatterCfg, ok := cfg.Formatters[formatterName]; ok {

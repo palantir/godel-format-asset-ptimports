@@ -35,7 +35,7 @@ var (
 	verifyFlagVal           bool
 	assetsFlagVal           []string
 
-	cliFormatterFactory formatter.Factory
+	cliFormatterFactory formatplugin.Factory
 )
 
 var RootCmd = &cobra.Command{

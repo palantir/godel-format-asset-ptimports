@@ -20,6 +20,7 @@ import (
 
 	"github.com/kardianos/osext"
 	"github.com/palantir/amalgomate/amalgomated"
+	"github.com/palantir/godel-format-plugin/formatplugin"
 	"github.com/palantir/godel-format-plugin/formatter"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
@@ -30,7 +31,7 @@ const TypeName = "ptimports"
 func Creator() formatter.Creator {
 	return formatter.NewCreator(
 		TypeName,
-		func(cfgYML []byte) (formatter.Formatter, error) {
+		func(cfgYML []byte) (formatplugin.Formatter, error) {
 			// translate old configuration into new configuration if needed
 			upgradedConfig, err := UpgradeConfig(cfgYML)
 			if err != nil {

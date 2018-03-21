@@ -21,11 +21,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-type ConfigUpgrader interface {
-	TypeName() string
-	UpgradeConfig([]byte) ([]byte, error)
-}
-
 type assetConfigUpgrader struct {
 	typeName  string
 	assetPath string
