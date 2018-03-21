@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.0.0-rc3"
+	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.0.0-rc4"
 	formatPluginResolver = "https://palantir.bintray.com/releases/{{GroupPath}}/{{Product}}/{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz"
 
 	godelYML = `exclude:
@@ -38,7 +38,7 @@ const (
 `
 )
 
-func TestPtimports(t *testing.T) {
+func TestFormat(t *testing.T) {
 	pluginProvider, err := pluginapitester.NewPluginProviderFromLocator(formatPluginLocator, formatPluginResolver)
 	require.NoError(t, err)
 

@@ -23,7 +23,9 @@ import (
 	"gopkg.in/yaml.v2"
 
 	"github.com/palantir/godel-format-plugin/formatplugin"
+	"github.com/palantir/godel-format-plugin/formatplugin/config"
 	"github.com/palantir/godel-format-plugin/formatter"
+	"github.com/palantir/godel-format-plugin/formatter/formatterfactory"
 )
 
 var (
@@ -58,7 +60,7 @@ func init() {
 		if err != nil {
 			return err
 		}
-		cliFormatterFactory, err = formatter.NewFormatterFactory(assetFormatters, assetConfigUpgraders)
+		cliFormatterFactory, err = formatterfactory.New(assetFormatters, assetConfigUpgraders)
 		if err != nil {
 			return err
 		}
@@ -66,20 +68,20 @@ func init() {
 	}
 }
 
-func readFormatConfigFromFile(cfgFile string) (formatplugin.Config, error) {
+func readFormatConfigFromFile(cfgFile string) (config.Format, error) {
 	bytes, err := ioutil.ReadFile(cfgFile)
 	if err != nil {
-		return formatplugin.Config{}, errors.Wrapf(err, "failed to read config file")
+		return config.Format{}, errors.Wrapf(err, "failed to read config file")
 	}
 
-	upgradedCfg, err := upgradeConfig(bytes)
+	upgradedCfg, err := config.UpgradeConfig(bytes, cliFormatterFactory)
 	if err != nil {
-		return formatplugin.Config{}, err
+		return config.Format{}, err
 	}
 
-	var formatCfg formatplugin.Config
+	var formatCfg config.Format
 	if err := yaml.Unmarshal(upgradedCfg, &formatCfg); err != nil {
-		return formatplugin.Config{}, errors.Wrapf(err, "failed to unmarshal YAML")
+		return config.Format{}, errors.Wrapf(err, "failed to unmarshal YAML")
 	}
 	return formatCfg, nil
 }
