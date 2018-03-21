@@ -18,9 +18,11 @@ import (
 	"sort"
 
 	"github.com/pkg/errors"
+
+	"github.com/palantir/godel-format-plugin/formatplugin"
 )
 
-type CreatorFunction func(cfgYML []byte) (Formatter, error)
+type CreatorFunction func(cfgYML []byte) (formatplugin.Formatter, error)
 
 type Creator interface {
 	TypeName() string
@@ -50,10 +52,10 @@ func NewCreator(typeName string, creatorFn CreatorFunction) Creator {
 type formatterFactory struct {
 	formatterTypes           []string
 	formatterCreators        map[string]CreatorFunction
-	formatterConfigUpgraders map[string]ConfigUpgrader
+	formatterConfigUpgraders map[string]formatplugin.ConfigUpgrader
 }
 
-func (f *formatterFactory) NewFormatter(typeName string, cfgYMLBytes []byte) (Formatter, error) {
+func (f *formatterFactory) NewFormatter(typeName string, cfgYMLBytes []byte) (formatplugin.Formatter, error) {
 	creatorFn, ok := f.formatterCreators[typeName]
 	if !ok {
 		var formatterNames []string
@@ -70,7 +72,7 @@ func (f *formatterFactory) FormatterTypes() []string {
 	return f.formatterTypes
 }
 
-func (f *formatterFactory) ConfigUpgrader(typeName string) (ConfigUpgrader, error) {
+func (f *formatterFactory) ConfigUpgrader(typeName string) (formatplugin.ConfigUpgrader, error) {
 	if _, ok := f.formatterCreators[typeName]; !ok {
 		var formatterNames []string
 		for k := range f.formatterCreators {
@@ -86,14 +88,14 @@ func (f *formatterFactory) ConfigUpgrader(typeName string) (ConfigUpgrader, erro
 	return upgrader, nil
 }
 
-func NewFormatterFactory(providedFormatterCreators []Creator, providedConfigUpgraders []ConfigUpgrader) (Factory, error) {
+func NewFormatterFactory(providedFormatterCreators []Creator, providedConfigUpgraders []formatplugin.ConfigUpgrader) (formatplugin.Factory, error) {
 	var formatterTypes []string
 	formatterCreators := make(map[string]CreatorFunction)
 	for _, currCreator := range providedFormatterCreators {
 		formatterTypes = append(formatterTypes, currCreator.TypeName())
 		formatterCreators[currCreator.TypeName()] = currCreator.Creator()
 	}
-	configUpgraders := make(map[string]ConfigUpgrader)
+	configUpgraders := make(map[string]formatplugin.ConfigUpgrader)
 	for _, currUpgrader := range providedConfigUpgraders {
 		currUpgrader := currUpgrader
 		configUpgraders[currUpgrader.TypeName()] = currUpgrader
@@ -105,9 +107,9 @@ func NewFormatterFactory(providedFormatterCreators []Creator, providedConfigUpgr
 	}, nil
 }
 
-func AssetFormatterCreators(assetPaths ...string) ([]Creator, []ConfigUpgrader, error) {
+func AssetFormatterCreators(assetPaths ...string) ([]Creator, []formatplugin.ConfigUpgrader, error) {
 	var formatterCreators []Creator
-	var configUpgraders []ConfigUpgrader
+	var configUpgraders []formatplugin.ConfigUpgrader
 	formatterNameToAssets := make(map[string][]string)
 	for _, currAssetPath := range assetPaths {
 		currFormatter := assetFormatter{
@@ -119,7 +121,7 @@ func AssetFormatterCreators(assetPaths ...string) ([]Creator, []ConfigUpgrader, 
 		}
 		formatterNameToAssets[formatterName] = append(formatterNameToAssets[formatterName], currAssetPath)
 		formatterCreators = append(formatterCreators, NewCreator(formatterName,
-			func(cfgYML []byte) (Formatter, error) {
+			func(cfgYML []byte) (formatplugin.Formatter, error) {
 				currFormatter.cfgYML = string(cfgYML)
 				if err := currFormatter.VerifyConfig(); err != nil {
 					return nil, err

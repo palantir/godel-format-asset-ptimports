@@ -23,7 +23,6 @@ import (
 	"gopkg.in/yaml.v2"
 
 	"github.com/palantir/godel-format-plugin/formatplugin"
-	"github.com/palantir/godel-format-plugin/formatter"
 )
 
 type legacyConfigStruct struct {
@@ -50,7 +49,7 @@ func IsLegacyConfig(cfgBytes []byte) bool {
 	return cfg.Legacy
 }
 
-func UpgradeLegacyConfig(cfgBytes []byte, factory formatter.Factory) ([]byte, error) {
+func UpgradeLegacyConfig(cfgBytes []byte, factory formatplugin.Factory) ([]byte, error) {
 	var legacyCfg legacyConfigStruct
 	if err := yaml.UnmarshalStrict(cfgBytes, &legacyCfg); err != nil {
 		return nil, errors.Wrapf(err, "failed to unmarshal legacy configuration")
@@ -73,7 +72,7 @@ func UpgradeLegacyConfig(cfgBytes []byte, factory formatter.Factory) ([]byte, er
 	return outputBytes, nil
 }
 
-func upgradeLegacyConfig(legacyCfg legacyConfigStruct, factory formatter.Factory) (*formatplugin.Config, error) {
+func upgradeLegacyConfig(legacyCfg legacyConfigStruct, factory formatplugin.Factory) (*formatplugin.Config, error) {
 	defaultCfg := legacyConfigStruct{
 		Formatters: map[string]legacyFormatterStruct{
 			"gofmt": {

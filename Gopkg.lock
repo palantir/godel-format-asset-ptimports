@@ -80,10 +80,10 @@
   revision = "558312ec532ab8ec819ebc20614f67b69656b448"
 
 [[projects]]
+  branch = "master"
   name = "github.com/palantir/godel-format-plugin"
-  packages = ["formatter","formattester"]
-  revision = "6efc20d33202f87a364004805c2f8a5c80b36d39"
-  version = "v1.0.0-rc3"
+  packages = ["formatplugin","formatter","formattester"]
+  revision = "898340987e86ee86b5ef9a87751e3fa395fd44cf"
 
 [[projects]]
   branch = "master"
