@@ -21,13 +21,14 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/palantir/godel-format-plugin/formatplugin"
+	"github.com/palantir/godel-format-plugin/formatplugin/config"
 )
 
 var runCmd = &cobra.Command{
 	Use:   "run [flags] [files]",
 	Short: "Format specified files (if no files are specified, format all project Go files)",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		var formatCfg formatplugin.Config
+		var formatCfg config.Format
 		if formatConfigFileFlagVal != "" {
 			cfgVal, err := readFormatConfigFromFile(formatConfigFileFlagVal)
 			if err != nil {

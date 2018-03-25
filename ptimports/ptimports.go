@@ -20,45 +20,21 @@ import (
 
 	"github.com/kardianos/osext"
 	"github.com/palantir/amalgomate/amalgomated"
-	"github.com/palantir/godel-format-plugin/formatplugin"
-	"github.com/palantir/godel-format-plugin/formatter"
 	"github.com/pkg/errors"
-	"gopkg.in/yaml.v2"
 )
 
 const TypeName = "ptimports"
 
-func Creator() formatter.Creator {
-	return formatter.NewCreator(
-		TypeName,
-		func(cfgYML []byte) (formatplugin.Formatter, error) {
-			// translate old configuration into new configuration if needed
-			upgradedConfig, err := UpgradeConfig(cfgYML)
-			if err != nil {
-				return nil, errors.Wrapf(err, "failed to load configuration")
-			}
-			var formatCfg Config
-			if err := yaml.Unmarshal(upgradedConfig, &formatCfg); err != nil {
-				return nil, errors.Wrapf(err, "failed to unmarshal YAML: %q", string(cfgYML))
-			}
-			return &ptimportsFormatter{
-				skipRefactor: formatCfg.SkipRefactor,
-				skipSimplify: formatCfg.SkipSimplify,
-			}, nil
-		},
-	)
+type Formatter struct {
+	SkipRefactor bool
+	SkipSimplify bool
 }
 
-type ptimportsFormatter struct {
-	skipRefactor bool
-	skipSimplify bool
-}
-
-func (f *ptimportsFormatter) TypeName() (string, error) {
+func (f *Formatter) TypeName() (string, error) {
 	return TypeName, nil
 }
 
-func (f *ptimportsFormatter) Format(files []string, list bool, stdout io.Writer) error {
+func (f *Formatter) Format(files []string, list bool, stdout io.Writer) error {
 	self, err := osext.Executable()
 	if err != nil {
 		return errors.Wrapf(err, "failed to determine executable")
@@ -71,10 +47,10 @@ func (f *ptimportsFormatter) Format(files []string, list bool, stdout io.Writer)
 	} else {
 		args = append(args, "-w")
 	}
-	if !f.skipSimplify {
+	if !f.SkipSimplify {
 		args = append(args, "-s")
 	}
-	if !f.skipRefactor {
+	if !f.SkipRefactor {
 		args = append(args, "-r")
 	}
 	args = append(args, files...)
