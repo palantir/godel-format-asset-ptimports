@@ -15,9 +15,7 @@
 package cmd
 
 import (
-	"path"
-
-	"github.com/palantir/godel/framework/godellauncher"
+	godelconfig "github.com/palantir/godel/framework/godel/config"
 	"github.com/spf13/cobra"
 
 	"github.com/palantir/godel-format-plugin/formatplugin"
@@ -38,7 +36,7 @@ var runCmd = &cobra.Command{
 		}
 
 		if godelConfigFileFlagVal != "" {
-			cfgVal, err := godellauncher.ReadGodelConfig(path.Dir(godelConfigFileFlagVal))
+			cfgVal, err := godelconfig.ReadGodelConfigFromFile(godelConfigFileFlagVal)
 			if err != nil {
 				return err
 			}
