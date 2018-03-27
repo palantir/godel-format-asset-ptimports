@@ -16,6 +16,7 @@ package cmd
 
 import (
 	"io/ioutil"
+	"os"
 
 	"github.com/palantir/godel/framework/pluginapi"
 	"github.com/pkg/errors"
@@ -70,6 +71,9 @@ func init() {
 
 func readFormatConfigFromFile(cfgFile string) (config.Format, error) {
 	bytes, err := ioutil.ReadFile(cfgFile)
+	if os.IsNotExist(err) {
+		return config.Format{}, nil
+	}
 	if err != nil {
 		return config.Format{}, errors.Wrapf(err, "failed to read config file")
 	}
