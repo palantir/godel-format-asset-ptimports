@@ -32,6 +32,10 @@ required = ["github.com/palantir/go-ptimports"]
 
 [[constraint]]
   branch = "master"
+  name = "github.com/palantir/godel"
+
+[[constraint]]
+  branch = "master"
   name = "github.com/palantir/pkg"
 
 [[constraint]]

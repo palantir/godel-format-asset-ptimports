@@ -28,17 +28,17 @@ import (
 const (
 	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.0.0-rc6"
 	formatPluginResolver = "https://palantir.bintray.com/releases/{{GroupPath}}/{{Product}}/{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz"
+)
 
-	godelYML = `exclude:
+func TestFormat(t *testing.T) {
+	const godelYML = `exclude:
   names:
     - "\\..+"
     - "vendor"
   paths:
     - "godel"
 `
-)
 
-func TestFormat(t *testing.T) {
 	pluginProvider, err := pluginapitester.NewPluginProviderFromLocator(formatPluginLocator, formatPluginResolver)
 	require.NoError(t, err)
 
@@ -354,7 +354,6 @@ func TestUpgradeConfig(t *testing.T) {
 			{
 				Name: "current configuration is not upgraded",
 				ConfigFiles: map[string]string{
-					"godel/config/godel.yml": godelYML,
 					"godel/config/format-plugin.yml": `
 # comment
 formatters:
