@@ -70,8 +70,8 @@
 [[projects]]
   name = "github.com/palantir/go-ptimports"
   packages = [".","ptimports"]
-  revision = "84f65e38728c28d6cc0328f77ad0f2c7ac98aec5"
-  version = "v2.2.0"
+  revision = "15401d19d612682b2b1e4e332adf902274da7290"
+  version = "v2.3.0"
 
 [[projects]]
   branch = "master"
@@ -143,7 +143,7 @@
   branch = "master"
   name = "golang.org/x/tools"
   packages = ["go/ast/astutil","imports"]
-  revision = "059bec968c61383b574810040ba9410712de36c5"
+  revision = "77106db15f689a60e7d4e085d967ac557b918fb2"
 
 [[projects]]
   name = "gopkg.in/cheggaaa/pb.v1"
@@ -160,6 +160,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c4139cbf585838fe8619e967c8b94a7f2f49e444de658d27b6dc9965652e385d"
+  inputs-digest = "b35305445f0bd60de7c5e3c856858b6cdda0e92f4bf037172f5c4597b8408dff"
   solver-name = "gps-cdcl"
   solver-version = 1
