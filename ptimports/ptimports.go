@@ -34,7 +34,7 @@ func (f *Formatter) TypeName() (string, error) {
 	return TypeName, nil
 }
 
-func (f *Formatter) Format(files []string, list bool, stdout io.Writer) error {
+func (f *Formatter) Format(files []string, list bool, projectDir string, stdout io.Writer) error {
 	self, err := osext.Executable()
 	if err != nil {
 		return errors.Wrapf(err, "failed to determine executable")

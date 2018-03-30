@@ -59,19 +59,14 @@ func UpgradeConfig(cfgBytes []byte, factory formatplugin.Factory) ([]byte, error
 		return nil, errors.Wrapf(err, "failed to upgrade format-plugin legacy configuration")
 	}
 
-	// indicates that this is the default config
-	if v0Cfg == nil {
-		return nil, nil
-	}
-
-	outputBytes, err := yaml.Marshal(*v0Cfg)
+	outputBytes, err := yaml.Marshal(v0Cfg)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to marshal format-plugin v0 configuration")
 	}
 	return outputBytes, nil
 }
 
-func upgradeLegacyConfig(legacyCfg Config, factory formatplugin.Factory) (*v0.Config, error) {
+func upgradeLegacyConfig(legacyCfg Config, factory formatplugin.Factory) (v0.Config, error) {
 	defaultCfg := Config{
 		Formatters: map[string]FormatterConfig{
 			"gofmt": {
@@ -81,17 +76,33 @@ func upgradeLegacyConfig(legacyCfg Config, factory formatplugin.Factory) (*v0.Co
 			},
 		},
 	}
+
+	// when upgrading from V0 configuration, set "separate-project-imports" to true
+	defaultV0Cfg := v0.Config{
+		Formatters: map[string]v0.FormatterConfig{
+			"ptimports": {
+				Config: yaml.MapSlice{
+					yaml.MapItem{
+						Key:   "separate-project-imports",
+						Value: true,
+					},
+				},
+			},
+		},
+	}
+
 	if reflect.DeepEqual(legacyCfg.Formatters, defaultCfg.Formatters) && legacyCfg.Exclude.Empty() {
-		// special case: this was the default configuration that shipped with gödel. If this is all that existed, no
-		// need to upgrade (default behavior of upgraded plugins/assets match this configuration).
-		return nil, nil
+		// special case: this was the default configuration that shipped with gödel. If this is all that existed, return
+		// hard-coded default configuration.
+		return defaultV0Cfg, nil
 	}
 
 	if reflect.DeepEqual(legacyCfg.Formatters, defaultCfg.Formatters) {
-		// special case: formatter configuration matches default, but exclude configuration does not. Upgrade just the
-		// exclude configuration.
-		return &v0.Config{
-			Exclude: legacyCfg.Exclude,
+		// special case: formatter configuration matches default, but exclude configuration does not. Return hard-coded
+		// default configuration with upgraded excludes.
+		return v0.Config{
+			Formatters: defaultV0Cfg.Formatters,
+			Exclude:    legacyCfg.Exclude,
 		}, nil
 	}
 
@@ -111,7 +122,7 @@ func upgradeLegacyConfig(legacyCfg Config, factory formatplugin.Factory) (*v0.Co
 	for _, k := range sortedKeys {
 		upgrader, err := factory.ConfigUpgrader(k)
 		if err != nil {
-			return nil, err
+			return v0.Config{}, err
 		}
 
 		assetCfgBytes, err := yaml.Marshal(AssetConfig{
@@ -121,22 +132,22 @@ func upgradeLegacyConfig(legacyCfg Config, factory formatplugin.Factory) (*v0.Co
 			Args: legacyCfg.Formatters[k].Args,
 		})
 		if err != nil {
-			return nil, errors.Wrapf(err, "failed to marshal formatter %q legacy configuration", k)
+			return v0.Config{}, errors.Wrapf(err, "failed to marshal formatter %q legacy configuration", k)
 		}
 
 		upgradedBytes, err := upgrader.UpgradeConfig(assetCfgBytes)
 		if err != nil {
-			return nil, errors.Wrapf(err, "failed to upgrade formatter %q legacy configuration", k)
+			return v0.Config{}, errors.Wrapf(err, "failed to upgrade formatter %q legacy configuration", k)
 		}
 
 		var yamlRep yaml.MapSlice
 		if err := yaml.Unmarshal(upgradedBytes, &yamlRep); err != nil {
-			return nil, errors.Wrapf(err, "failed to unmarshal formatter %q configuration as yaml.MapSlice", k)
+			return v0.Config{}, errors.Wrapf(err, "failed to unmarshal formatter %q configuration as yaml.MapSlice", k)
 		}
 
 		upgradedCfg.Formatters[k] = v0.FormatterConfig{
 			Config: yamlRep,
 		}
 	}
-	return &upgradedCfg, nil
+	return upgradedCfg, nil
 }

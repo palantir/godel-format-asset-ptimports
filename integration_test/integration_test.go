@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.0.0-rc5"
+	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.0.0-rc6"
 	formatPluginResolver = "https://palantir.bintray.com/releases/{{GroupPath}}/{{Product}}/{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz"
 
 	godelYML = `exclude:
@@ -52,6 +52,7 @@ func TestFormat(t *testing.T) {
 	formattester.RunAssetFormatTest(t,
 		pluginProvider,
 		pluginapitester.NewAssetProvider(assetPath),
+		".",
 		[]formattester.AssetTestCase{
 			{
 				Name: "formats file",
@@ -65,13 +66,15 @@ import _ "fmt"
 					},
 				},
 				ConfigFiles: configFiles,
-				WantFiles: map[string]string{
-					"foo.go": `package foo
+				WantFiles: func(specFiles map[string]gofiles.GoFile) map[string]string {
+					return map[string]string{
+						"foo.go": `package foo
 
 import (
 	_ "fmt"
 )
 `,
+					}
 				},
 			},
 			{
@@ -83,19 +86,35 @@ import (
 
 import _ "fmt"
 import _ "github.com/org/repo"
+import _ "{{index . "bar/bar.go"}}"
+import _ "{{index . "baz/baz.go"}}"
+`,
+					},
+					{
+						RelPath: "bar/bar.go",
+						Src: `package bar
+`,
+					},
+					{
+						RelPath: "baz/baz.go",
+						Src: `package baz
 `,
 					},
 				},
 				ConfigFiles: configFiles,
-				WantFiles: map[string]string{
-					"foo.go": `package foo
+				WantFiles: func(specFiles map[string]gofiles.GoFile) map[string]string {
+					return map[string]string{
+						"foo.go": fmt.Sprintf(`package foo
 
 import (
 	_ "fmt"
 
 	_ "github.com/org/repo"
+	_ "%s"
+	_ "%s"
 )
-`,
+`, specFiles["bar/bar.go"].ImportPath, specFiles["baz/baz.go"].ImportPath),
+					}
 				},
 			},
 			{
@@ -110,9 +129,11 @@ import "fmt"
 					},
 				},
 				ConfigFiles: configFiles,
-				WantFiles: map[string]string{
-					"foo.go": `package foo
+				WantFiles: func(specFiles map[string]gofiles.GoFile) map[string]string {
+					return map[string]string{
+						"foo.go": `package foo
 `,
+					}
 				},
 			},
 			{
@@ -129,8 +150,9 @@ func Foo() {
 					},
 				},
 				ConfigFiles: configFiles,
-				WantFiles: map[string]string{
-					"foo.go": `package foo
+				WantFiles: func(specFiles map[string]gofiles.GoFile) map[string]string {
+					return map[string]string{
+						"foo.go": `package foo
 
 import (
 	"fmt"
@@ -140,6 +162,7 @@ func Foo() {
 	fmt.Println("foo")
 }
 `,
+					}
 				},
 			},
 			{
@@ -158,8 +181,9 @@ func Foo() {
 					},
 				},
 				ConfigFiles: configFiles,
-				WantFiles: map[string]string{
-					"foo.go": `package foo
+				WantFiles: func(specFiles map[string]gofiles.GoFile) map[string]string {
+					return map[string]string{
+						"foo.go": `package foo
 
 func Foo() {
 	for i := range []string{} {
@@ -167,6 +191,7 @@ func Foo() {
 	}
 }
 `,
+					}
 				},
 			},
 			{
@@ -193,8 +218,9 @@ formatters:
       skip-simplify: true
 `,
 				},
-				WantFiles: map[string]string{
-					"foo.go": `package foo
+				WantFiles: func(specFiles map[string]gofiles.GoFile) map[string]string {
+					return map[string]string{
+						"foo.go": `package foo
 
 func Foo() {
 	for i, _ := range []string{} {
@@ -202,6 +228,7 @@ func Foo() {
 	}
 }
 `,
+					}
 				},
 			},
 			{
@@ -224,11 +251,13 @@ formatters:
       skip-refactor: true
 `,
 				},
-				WantFiles: map[string]string{
-					"foo.go": `package foo
+				WantFiles: func(specFiles map[string]gofiles.GoFile) map[string]string {
+					return map[string]string{
+						"foo.go": `package foo
 
 import _ "fmt"
 `,
+					}
 				},
 			},
 			{
@@ -249,11 +278,13 @@ import _ "fmt"
 					return fmt.Sprintf(`%s/foo.go
 `, projectDir)
 				},
-				WantFiles: map[string]string{
-					"foo.go": `package foo
+				WantFiles: func(specFiles map[string]gofiles.GoFile) map[string]string {
+					return map[string]string{
+						"foo.go": `package foo
 
 import _ "fmt"
 `,
+					}
 				},
 			},
 		},

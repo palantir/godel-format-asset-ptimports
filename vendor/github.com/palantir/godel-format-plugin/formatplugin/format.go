@@ -61,7 +61,7 @@ func Run(param Param, projectDir string, verify bool, providedFiles []string, st
 		if verify {
 			formatterOutput = &outputBuf
 		}
-		if err := currFormatter.Format(files, verify, formatterOutput); err != nil {
+		if err := currFormatter.Format(files, verify, projectDir, formatterOutput); err != nil {
 			if verify {
 				// if in "verify" mode, output has not been streamed, so print to stdout
 				fmt.Fprint(stdout, outputBuf.String())

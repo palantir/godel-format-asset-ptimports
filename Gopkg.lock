@@ -82,8 +82,8 @@
 [[projects]]
   name = "github.com/palantir/godel-format-plugin"
   packages = ["formatplugin","formatter","formattester"]
-  revision = "72cb852249226793e3d39d68adb4a326819ac8b2"
-  version = "v1.0.0-rc5"
+  revision = "6c102316f7c498b0d98cff4b435b4732eff6d9cc"
+  version = "v1.0.0-rc6"
 
 [[projects]]
   branch = "master"

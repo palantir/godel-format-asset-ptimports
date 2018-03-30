@@ -42,51 +42,6 @@ func TestUpgradeConfig(t *testing.T) {
 		nil,
 		[]pluginapitester.UpgradeConfigTestCase{
 			{
-				Name: "default legacy format config is upgraded to blank",
-				ConfigFiles: map[string]string{
-					"godel/config/godel.yml": godelYML,
-					"godel/config/format-plugin.yml": `
-legacy-config: true
-formatters:
-  gofmt:
-    args:
-      - "-s"
-`,
-				},
-				WantOutput: "Upgraded configuration for format-plugin.yml\n",
-				WantFiles: map[string]string{
-					"godel/config/format-plugin.yml": ``,
-				},
-			},
-			{
-				Name: "legacy format config excludes are upgraded",
-				ConfigFiles: map[string]string{
-					"godel/config/godel.yml": godelYML,
-					"godel/config/format-plugin.yml": `
-legacy-config: true
-formatters:
-  gofmt:
-    args:
-      - "-s"
-exclude:
-  names:
-    - "foo.go"
-  paths:
-    - "integration_test"
-`,
-				},
-				WantOutput: "Upgraded configuration for format-plugin.yml\n",
-				WantFiles: map[string]string{
-					"godel/config/format-plugin.yml": `formatters: {}
-exclude:
-  names:
-  - foo.go
-  paths:
-  - integration_test
-`,
-				},
-			},
-			{
 				Name: "current config is unmodified",
 				ConfigFiles: map[string]string{
 					"godel/config/godel.yml": godelYML,
