@@ -23,7 +23,8 @@ type Ptimports v0.Config
 
 func (cfg *Ptimports) ToFormatter() *ptimports.Formatter {
 	return &ptimports.Formatter{
-		SkipRefactor: cfg.SkipRefactor,
-		SkipSimplify: cfg.SkipSimplify,
+		SkipRefactor:           cfg.SkipRefactor,
+		SkipSimplify:           cfg.SkipSimplify,
+		SeparateProjectImports: cfg.SeparateProjectImports,
 	}
 }

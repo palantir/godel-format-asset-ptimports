@@ -118,6 +118,54 @@ import (
 				},
 			},
 			{
+				Name: "groups imports using project path when specified in config",
+				Specs: []gofiles.GoFileSpec{
+					{
+						RelPath: "foo.go",
+						Src: `package foo
+
+import _ "fmt"
+import _ "github.com/org/repo"
+import _ "{{index . "bar/bar.go"}}"
+import _ "{{index . "baz/baz.go"}}"
+`,
+					},
+					{
+						RelPath: "bar/bar.go",
+						Src: `package bar
+`,
+					},
+					{
+						RelPath: "baz/baz.go",
+						Src: `package baz
+`,
+					},
+				},
+				ConfigFiles: map[string]string{
+					"godel/config/godel.yml": godelYML,
+					"godel/config/format-plugin.yml": `
+formatters:
+  ptimports:
+    config:
+      separate-project-imports: true
+`},
+				WantFiles: func(specFiles map[string]gofiles.GoFile) map[string]string {
+					return map[string]string{
+						"foo.go": fmt.Sprintf(`package foo
+
+import (
+	_ "fmt"
+
+	_ "github.com/org/repo"
+
+	_ "%s"
+	_ "%s"
+)
+`, specFiles["bar/bar.go"].ImportPath, specFiles["baz/baz.go"].ImportPath),
+					}
+				},
+			},
+			{
 				Name: "removes unused imports",
 				Specs: []gofiles.GoFileSpec{
 					{
