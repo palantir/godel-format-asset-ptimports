@@ -20,8 +20,9 @@ import (
 )
 
 type Config struct {
-	SkipRefactor bool `yaml:"skip-refactor"`
-	SkipSimplify bool `yaml:"skip-simplify"`
+	SkipRefactor           bool `yaml:"skip-refactor"`
+	SkipSimplify           bool `yaml:"skip-simplify"`
+	SeparateProjectImports bool `yaml:"separate-project-imports"`
 }
 
 func UpgradeConfig(cfgBytes []byte) ([]byte, error) {
