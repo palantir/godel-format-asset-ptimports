@@ -20,6 +20,7 @@ import (
 	"os/exec"
 	"strings"
 
+	"github.com/palantir/godel/framework/pluginapi"
 	"github.com/pkg/errors"
 )
 
@@ -51,13 +52,16 @@ func (f *assetFormatter) VerifyConfig() error {
 	return nil
 }
 
-func (f *assetFormatter) Format(files []string, list bool, stdout io.Writer) error {
+func (f *assetFormatter) Format(files []string, list bool, projectDir string, stdout io.Writer) error {
 	args := []string{
 		runFormatCmdName,
 		"--" + commonCmdConfigYMLFlagName, f.cfgYML,
 	}
 	if list {
 		args = append(args, "--"+runFormatCmdListFlagName)
+	}
+	if projectDir != "" {
+		args = append(args, "--"+pluginapi.ProjectDirFlagName, projectDir)
 	}
 	args = append(args, files...)
 

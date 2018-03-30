@@ -39,7 +39,7 @@ type AssetTestCase struct {
 	Wd         string
 	WantError  bool
 	WantOutput func(projectDir string) string
-	WantFiles  map[string]string
+	WantFiles  func(specFiles map[string]gofiles.GoFile) map[string]string
 }
 
 // RunAssetFormatTest tests the "format" operation using the provided asset. Resolves the format plugin using the
@@ -47,9 +47,16 @@ type AssetTestCase struct {
 func RunAssetFormatTest(t *testing.T,
 	pluginProvider pluginapitester.PluginProvider,
 	assetProvider pluginapitester.AssetProvider,
+	testBaseDir string,
 	testCases []AssetTestCase,
 ) {
-	tmpDir, cleanup, err := dirs.TempDir("", "")
+	wd, err := os.Getwd()
+	require.NoError(t, err)
+	if testBaseDir != "" && !filepath.IsAbs(testBaseDir) {
+		testBaseDir = path.Join(wd, testBaseDir)
+	}
+
+	tmpDir, cleanup, err := dirs.TempDir(testBaseDir, "")
 	require.NoError(t, err)
 	defer cleanup()
 
@@ -73,7 +80,7 @@ func RunAssetFormatTest(t *testing.T,
 			require.NoError(t, err)
 		}
 
-		_, err = gofiles.Write(projectDir, tc.Specs)
+		specFiles, err := gofiles.Write(projectDir, tc.Specs)
 		require.NoError(t, err)
 
 		outputBuf := &bytes.Buffer{}
@@ -117,16 +124,18 @@ func RunAssetFormatTest(t *testing.T,
 			}
 			assert.Equal(t, wantOutput, outputBuf.String(), "Case %d: %s", i, tc.Name)
 
+			wantFiles := tc.WantFiles(specFiles)
 			var sortedKeys []string
-			for k := range tc.WantFiles {
+			for k := range wantFiles {
 				sortedKeys = append(sortedKeys, k)
 			}
 			sort.Strings(sortedKeys)
 			for _, k := range sortedKeys {
-				wantContent := tc.WantFiles[k]
+				wantContent := wantFiles[k]
 				bytes, err := ioutil.ReadFile(path.Join(projectDir, k))
 				require.NoError(t, err, "Case %d: %s", i, tc.Name)
-				assert.Equal(t, wantContent, string(bytes), "Case %d: %s", i, tc.Name)
+				got := string(bytes)
+				assert.Equal(t, wantContent, got, "Case %d: %s\nGot:\n%s", i, tc.Name, got)
 			}
 		}()
 	}

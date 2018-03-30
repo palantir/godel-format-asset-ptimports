@@ -83,8 +83,9 @@ const (
 
 func newRunFormatCmd(creatorFn CreatorFunction) *cobra.Command {
 	var (
-		configYMLFlagVal string
-		listFlagVal      bool
+		configYMLFlagVal  string
+		listFlagVal       bool
+		projectDirFlagVal string
 	)
 	runFormatCmd := &cobra.Command{
 		Use:   runFormatCmdName,
@@ -94,7 +95,7 @@ func newRunFormatCmd(creatorFn CreatorFunction) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			if err := formatter.Format(args, listFlagVal, cmd.OutOrStdout()); err != nil {
+			if err := formatter.Format(args, listFlagVal, projectDirFlagVal, cmd.OutOrStdout()); err != nil {
 				return err
 			}
 			return nil
@@ -102,6 +103,7 @@ func newRunFormatCmd(creatorFn CreatorFunction) *cobra.Command {
 	}
 	runFormatCmd.Flags().StringVar(&configYMLFlagVal, commonCmdConfigYMLFlagName, "", "YML of formatter configuration")
 	runFormatCmd.Flags().BoolVar(&listFlagVal, runFormatCmdListFlagName, false, "list the files that would be modified by the operation")
+	runFormatCmd.Flags().StringVar(&projectDirFlagVal, pluginapi.ProjectDirFlagName, "", "project directory")
 	mustMarkFlagsRequired(runFormatCmd, commonCmdConfigYMLFlagName)
 	return runFormatCmd
 }

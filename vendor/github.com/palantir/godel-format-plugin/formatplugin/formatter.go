@@ -24,7 +24,7 @@ type Formatter interface {
 
 	// Format runs the format operation on the provided files. If "list" is true, then the files that would be changed
 	// are printed to stdout rather than formatting the files.
-	Format(files []string, list bool, stdout io.Writer) error
+	Format(files []string, list bool, projectDir string, stdout io.Writer) error
 }
 
 type Factory interface {
