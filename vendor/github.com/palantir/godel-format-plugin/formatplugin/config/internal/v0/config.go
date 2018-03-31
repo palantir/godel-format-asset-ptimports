@@ -26,12 +26,12 @@ import (
 )
 
 type Config struct {
-	Formatters map[string]FormatterConfig `yaml:"formatters"`
-	Exclude    matcher.NamesPathsCfg      `yaml:"exclude"`
+	Formatters map[string]FormatterConfig `yaml:"formatters,omitempty"`
+	Exclude    matcher.NamesPathsCfg      `yaml:"exclude,omitempty"`
 }
 
 type FormatterConfig struct {
-	Config yaml.MapSlice `yaml:"config"`
+	Config yaml.MapSlice `yaml:"config,omitempty"`
 }
 
 func UpgradeConfig(cfgBytes []byte, factory formatplugin.Factory) ([]byte, error) {

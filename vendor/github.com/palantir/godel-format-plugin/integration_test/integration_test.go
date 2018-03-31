@@ -57,9 +57,6 @@ func TestUpgradeConfig(t *testing.T) {
   ptimports:
     config:
       separate-project-imports: true
-exclude:
-  names: []
-  paths: []
 `,
 				},
 			},
