@@ -24,7 +24,7 @@ required = ["github.com/palantir/go-ptimports"]
 
 [[constraint]]
   name = "github.com/palantir/go-ptimports"
-  version = "2.3.0"
+  version = "2.4.0"
 
 [[constraint]]
   branch = "master"
@@ -40,7 +40,7 @@ required = ["github.com/palantir/go-ptimports"]
 
 [[constraint]]
   name = "github.com/spf13/cobra"
-  version = "0.0.1"
+  version = "0.0.2"
 
 [[constraint]]
   name = "github.com/stretchr/testify"
