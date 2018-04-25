@@ -28,8 +28,6 @@ import (
 
 const assetName = "ptimports"
 
-var debugFlagVal bool
-
 func main() {
 	if len(os.Args) >= 2 && os.Args[1] == amalgomated.ProxyCmdPrefix+assetName {
 		os.Args = append(os.Args[:1], os.Args[2:]...)
@@ -38,5 +36,5 @@ func main() {
 	}
 
 	rootCmd := formatter.AssetRootCmd(creator.Ptimports(), config.UpgradeConfig, "")
-	os.Exit(cobracli.ExecuteWithDefaultParamsWithVersion(rootCmd, &debugFlagVal, ""))
+	os.Exit(cobracli.ExecuteWithDefaultParams(rootCmd))
 }

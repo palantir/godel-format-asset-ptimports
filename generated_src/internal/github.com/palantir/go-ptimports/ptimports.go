@@ -68,5 +68,5 @@ func init() {
 }
 
 func AmalgomatedMain() {
-	os.Exit(cobracli.ExecuteWithDefaultParamsWithVersion(rootCmd, &debugFlagVal, ""))
+	os.Exit(cobracli.ExecuteWithDebugVarAndDefaultParams(rootCmd, &debugFlagVal))
 }
