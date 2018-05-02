@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.0.0-rc6"
+	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.0.0"
 	formatPluginResolver = "https://palantir.bintray.com/releases/{{GroupPath}}/{{Product}}/{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz"
 )
 

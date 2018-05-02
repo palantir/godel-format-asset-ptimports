@@ -58,5 +58,5 @@ var runCmd = &cobra.Command{
 
 func init() {
 	runCmd.Flags().BoolVar(&verifyFlagVal, "verify", false, "verify files match formatting without applying formatting")
-	RootCmd.AddCommand(runCmd)
+	rootCmd.AddCommand(runCmd)
 }
