@@ -17,33 +17,35 @@ package cmd
 import (
 	"github.com/palantir/godel/framework/pluginapi/v2/pluginapi"
 	"github.com/palantir/godel/framework/verifyorder"
-	"github.com/palantir/pkg/cobracli"
 )
 
-var PluginInfo = pluginapi.MustNewPluginInfo(
-	"com.palantir.godel-format-plugin",
-	"format-plugin",
-	cobracli.Version,
-	pluginapi.PluginInfoUsesConfigFile(),
-	pluginapi.PluginInfoGlobalFlagOptions(
-		pluginapi.GlobalFlagOptionsParamDebugFlag("--"+pluginapi.DebugFlagName),
-		pluginapi.GlobalFlagOptionsParamProjectDirFlag("--"+pluginapi.ProjectDirFlagName),
-		pluginapi.GlobalFlagOptionsParamGodelConfigFlag("--"+pluginapi.GodelConfigFlagName),
-		pluginapi.GlobalFlagOptionsParamConfigFlag("--"+pluginapi.ConfigFlagName),
-	),
-	pluginapi.PluginInfoTaskInfo(
-		"format",
-		"Format files",
-		pluginapi.TaskInfoCommand("run"),
-		pluginapi.TaskInfoVerifyOptions(
-			pluginapi.VerifyOptionsApplyFalseArgs("--verify"),
-			pluginapi.VerifyOptionsOrdering(intPtr(verifyorder.Format)),
+var (
+	Version    = "unspecified"
+	PluginInfo = pluginapi.MustNewPluginInfo(
+		"com.palantir.godel-format-plugin",
+		"format-plugin",
+		Version,
+		pluginapi.PluginInfoUsesConfigFile(),
+		pluginapi.PluginInfoGlobalFlagOptions(
+			pluginapi.GlobalFlagOptionsParamDebugFlag("--"+pluginapi.DebugFlagName),
+			pluginapi.GlobalFlagOptionsParamProjectDirFlag("--"+pluginapi.ProjectDirFlagName),
+			pluginapi.GlobalFlagOptionsParamGodelConfigFlag("--"+pluginapi.GodelConfigFlagName),
+			pluginapi.GlobalFlagOptionsParamConfigFlag("--"+pluginapi.ConfigFlagName),
 		),
-	),
-	pluginapi.PluginInfoUpgradeConfigTaskInfo(
-		pluginapi.UpgradeConfigTaskInfoCommand("upgrade-config"),
-		pluginapi.LegacyConfigFile("format.yml"),
-	),
+		pluginapi.PluginInfoTaskInfo(
+			"format",
+			"Format files",
+			pluginapi.TaskInfoCommand("run"),
+			pluginapi.TaskInfoVerifyOptions(
+				pluginapi.VerifyOptionsApplyFalseArgs("--verify"),
+				pluginapi.VerifyOptionsOrdering(intPtr(verifyorder.Format)),
+			),
+		),
+		pluginapi.PluginInfoUpgradeConfigTaskInfo(
+			pluginapi.UpgradeConfigTaskInfoCommand("upgrade-config"),
+			pluginapi.LegacyConfigFile("format.yml"),
+		),
+	)
 )
 
 func intPtr(val int) *int {

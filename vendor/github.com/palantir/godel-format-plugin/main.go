@@ -18,7 +18,6 @@ import (
 	"os"
 
 	"github.com/palantir/godel/framework/pluginapi/v2/pluginapi"
-	"github.com/palantir/pkg/cobracli"
 
 	"github.com/palantir/godel-format-plugin/cmd"
 )
@@ -27,5 +26,5 @@ func main() {
 	if ok := pluginapi.InfoCmd(os.Args, os.Stdout, cmd.PluginInfo); ok {
 		return
 	}
-	os.Exit(cobracli.ExecuteWithDefaultParamsWithVersion(cmd.RootCmd, &cmd.DebugFlagVal, ""))
+	os.Exit(cmd.Execute())
 }

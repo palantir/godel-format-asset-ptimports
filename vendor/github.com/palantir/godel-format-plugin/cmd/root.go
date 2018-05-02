@@ -19,6 +19,7 @@ import (
 	"os"
 
 	"github.com/palantir/godel/framework/pluginapi"
+	"github.com/palantir/pkg/cobracli"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
@@ -30,8 +31,7 @@ import (
 )
 
 var (
-	DebugFlagVal bool
-
+	debugFlagVal            bool
 	projectDirFlagVal       string
 	godelConfigFileFlagVal  string
 	formatConfigFileFlagVal string
@@ -41,22 +41,26 @@ var (
 	cliFormatterFactory formatplugin.Factory
 )
 
-var RootCmd = &cobra.Command{
+var rootCmd = &cobra.Command{
 	Use:   "format-plugin [flags] [files]",
 	Short: "Format specified files (if no files are specified, format all project Go files)",
 }
 
+func Execute() int {
+	return cobracli.ExecuteWithDebugVarAndDefaultParams(rootCmd, &debugFlagVal)
+}
+
 func init() {
-	pluginapi.AddDebugPFlagPtr(RootCmd.PersistentFlags(), &DebugFlagVal)
-	pluginapi.AddGodelConfigPFlagPtr(RootCmd.PersistentFlags(), &godelConfigFileFlagVal)
-	pluginapi.AddConfigPFlagPtr(RootCmd.PersistentFlags(), &formatConfigFileFlagVal)
-	pluginapi.AddProjectDirPFlagPtr(RootCmd.PersistentFlags(), &projectDirFlagVal)
-	pluginapi.AddAssetsPFlagPtr(RootCmd.PersistentFlags(), &assetsFlagVal)
-	if err := RootCmd.MarkPersistentFlagRequired(pluginapi.ProjectDirFlagName); err != nil {
+	pluginapi.AddDebugPFlagPtr(rootCmd.PersistentFlags(), &debugFlagVal)
+	pluginapi.AddGodelConfigPFlagPtr(rootCmd.PersistentFlags(), &godelConfigFileFlagVal)
+	pluginapi.AddConfigPFlagPtr(rootCmd.PersistentFlags(), &formatConfigFileFlagVal)
+	pluginapi.AddProjectDirPFlagPtr(rootCmd.PersistentFlags(), &projectDirFlagVal)
+	pluginapi.AddAssetsPFlagPtr(rootCmd.PersistentFlags(), &assetsFlagVal)
+	if err := rootCmd.MarkPersistentFlagRequired(pluginapi.ProjectDirFlagName); err != nil {
 		panic(err)
 	}
 
-	RootCmd.PersistentPreRunE = func(cmd *cobra.Command, args []string) error {
+	rootCmd.PersistentPreRunE = func(cmd *cobra.Command, args []string) error {
 		assetFormatters, assetConfigUpgraders, err := formatter.AssetFormatterCreators(assetsFlagVal...)
 		if err != nil {
 			return err
