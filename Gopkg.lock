@@ -82,10 +82,11 @@
   name = "github.com/palantir/go-ptimports"
   packages = [
     ".",
+    "cmd",
     "ptimports"
   ]
-  revision = "a9a04216a70f44be675b4da1532f4dd8184d3129"
-  version = "v2.4.0"
+  revision = "10928d65d128cfd32d315171c732fe55dc3f598d"
+  version = "v2.5.0"
 
 [[projects]]
   branch = "master"
