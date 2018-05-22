@@ -1,0 +1,3 @@
+packages:
+  ptimports:
+    main: github.com/palantir/go-ptimports

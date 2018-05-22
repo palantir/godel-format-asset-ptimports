@@ -25,13 +25,13 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use: "go-ptimports",
+	Use:	"go-ptimports",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		opts := &ptimports.Options{
-			Refactor:      refactorFlagVal,
-			Simplify:      simplifyFlagVal,
-			FormatOnly:    formatOnlyFlagVal,
-			LocalPrefixes: localPrefixFlagVal,
+			Refactor:	refactorFlagVal,
+			Simplify:	simplifyFlagVal,
+			FormatOnly:	formatOnlyFlagVal,
+			LocalPrefixes:	localPrefixFlagVal,
 		}
 
 		if len(args) == 0 {
@@ -47,14 +47,14 @@ var rootCmd = &cobra.Command{
 }
 
 var (
-	debugFlagVal       bool
-	simplifyFlagVal    bool
-	refactorFlagVal    bool
-	formatOnlyFlagVal  bool
-	localPrefixFlagVal []string
+	debugFlagVal		bool
+	simplifyFlagVal		bool
+	refactorFlagVal		bool
+	formatOnlyFlagVal	bool
+	localPrefixFlagVal	[]string
 
-	listFlagVal  bool
-	writeFlagVal bool
+	listFlagVal	bool
+	writeFlagVal	bool
 )
 
 func init() {

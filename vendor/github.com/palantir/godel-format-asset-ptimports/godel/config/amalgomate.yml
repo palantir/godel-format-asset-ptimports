@@ -1,0 +1,5 @@
+amalgomators:
+  ptimports:
+    config: format.yml
+    output-dir: generated_src
+    pkg: amalgomatedformatter
