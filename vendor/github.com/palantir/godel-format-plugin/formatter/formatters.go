@@ -54,6 +54,7 @@ func AssetFormatterCreators(assetPaths ...string) ([]Creator, []formatplugin.Con
 	var configUpgraders []formatplugin.ConfigUpgrader
 	formatterNameToAssets := make(map[string][]string)
 	for _, currAssetPath := range assetPaths {
+		currAssetPath := currAssetPath
 		currFormatter := assetFormatter{
 			assetPath: currAssetPath,
 		}
@@ -64,11 +65,14 @@ func AssetFormatterCreators(assetPaths ...string) ([]Creator, []formatplugin.Con
 		formatterNameToAssets[formatterName] = append(formatterNameToAssets[formatterName], currAssetPath)
 		formatterCreators = append(formatterCreators, NewCreator(formatterName,
 			func(cfgYML []byte) (formatplugin.Formatter, error) {
-				currFormatter.cfgYML = string(cfgYML)
-				if err := currFormatter.VerifyConfig(); err != nil {
+				newFormatter := assetFormatter{
+					assetPath: currAssetPath,
+					cfgYML:    string(cfgYML),
+				}
+				if err := newFormatter.VerifyConfig(); err != nil {
 					return nil, err
 				}
-				return &currFormatter, nil
+				return &newFormatter, nil
 			}))
 		configUpgraders = append(configUpgraders, &assetConfigUpgrader{
 			typeName:  formatterName,

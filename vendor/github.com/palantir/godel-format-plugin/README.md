@@ -10,8 +10,11 @@ godel-format-plugin provides the following tasks:
 
 Assets
 ------
-godel-format-plugin assets are executables that provide format functionality and also respond to commands that provide information such as the formatter name and verifying formatter configuration.
+godel-format-plugin assets are executables that provide format functionality and also respond to commands that provide
+information such as the formatter name and verifying formatter configuration.
 
 Writing an asset
 ----------------
-godel-format-plugin provides helper APIs to facilitate writing new assets. More detailed instructions for writing assets are forthcoming. In the meantime, the most effective way to write an asset is to examine the implementation of an existing asset.
+godel-format-plugin provides helper APIs to facilitate writing new assets. More detailed instructions for writing assets
+are forthcoming. In the meantime, the most effective way to write an asset is to examine the implementation of an
+existing asset.
