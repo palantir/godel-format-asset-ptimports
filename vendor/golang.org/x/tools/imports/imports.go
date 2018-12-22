@@ -18,6 +18,7 @@ import (
 	"go/printer"
 	"go/token"
 	"io"
+	"io/ioutil"
 	"regexp"
 	"strconv"
 	"strings"
@@ -47,6 +48,13 @@ func Process(filename string, src []byte, opt *Options) ([]byte, error) {
 	if opt == nil {
 		opt = &Options{Comments: true, TabIndent: true, TabWidth: 8}
 	}
+	if src == nil {
+		b, err := ioutil.ReadFile(filename)
+		if err != nil {
+			return nil, err
+		}
+		src = b
+	}
 
 	fileSet := token.NewFileSet()
 	file, adjust, err := parse(fileSet, filename, src, opt)
@@ -55,8 +63,7 @@ func Process(filename string, src []byte, opt *Options) ([]byte, error) {
 	}
 
 	if !opt.FormatOnly {
-		_, err = fixImports(fileSet, file, filename)
-		if err != nil {
+		if err := fixImports(fileSet, file, filename); err != nil {
 			return nil, err
 		}
 	}

@@ -16,15 +16,12 @@ package ptimports
 
 import (
 	"io"
-	"os"
 	"os/exec"
-	"path"
-	"path/filepath"
-	"strings"
 
 	"github.com/kardianos/osext"
 	"github.com/palantir/amalgomate/amalgomated"
 	"github.com/pkg/errors"
+	"golang.org/x/tools/go/packages"
 )
 
 const TypeName = "ptimports"
@@ -59,11 +56,11 @@ func (f *Formatter) Format(files []string, list bool, projectDir string, stdout 
 		args = append(args, "-r")
 	}
 	if f.SeparateProjectImports {
-		projectDirLocalPath, err := projectLocalPath(projectDir)
+		projectPkgPath, err := projectImportPath(projectDir)
 		if err != nil {
 			return err
 		}
-		args = append(args, "--local", projectDirLocalPath)
+		args = append(args, "--local", projectPkgPath+"/")
 	}
 	args = append(args, files...)
 
@@ -78,22 +75,15 @@ func (f *Formatter) Format(files []string, list bool, projectDir string, stdout 
 	return nil
 }
 
-func projectLocalPath(projectDir string) (string, error) {
-	gopath := os.Getenv("GOPATH")
-	if gopath == "" {
-		return "", errors.Errorf("GOPATH environment variable not set")
-	}
-	canonicalGoPath, err := filepath.EvalSymlinks(gopath)
+func projectImportPath(projectDir string) (string, error) {
+	pkgs, err := packages.Load(&packages.Config{
+		Dir: projectDir,
+	}, "")
 	if err != nil {
-		return "", errors.Wrapf(err, "failed to evaluate symlinks for GOPATH %q", gopath)
+		return "", errors.Wrapf(err, "failed to load packages in %s", projectDir)
 	}
-	canonicalProjectDirPath, err := filepath.EvalSymlinks(projectDir)
-	if err != nil {
-		return "", errors.Wrapf(err, "failed to evaulate symlinks for project dir %q", projectDir)
+	if len(pkgs) == 0 {
+		return "", errors.Errorf("no packages found in %s", projectDir)
 	}
-	gopathSrc := path.Join(canonicalGoPath, "src") + "/"
-	if !strings.HasPrefix(canonicalProjectDirPath, gopathSrc) {
-		return "", errors.Errorf("project dir %q is not within $GOPATH/src %q", canonicalProjectDirPath, gopathSrc)
-	}
-	return strings.TrimPrefix(canonicalProjectDirPath, gopathSrc) + "/", nil
+	return pkgs[0].PkgPath, nil
 }
