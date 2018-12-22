@@ -245,14 +245,23 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:95f24cc9a9a50da8aa144484a7c625c2e30dcbddf8e3bc336d2d92108b8c769e"
+  digest = "1:b7ef5af07b9421973508acd2a12e1d82d948357b0a584962ed5f5dbf6bd90681"
   name = "golang.org/x/tools"
   packages = [
     "go/ast/astutil",
+    "go/gcexportdata",
+    "go/internal/cgo",
+    "go/internal/gcimporter",
+    "go/internal/packagesdriver",
+    "go/packages",
+    "go/types/typeutil",
     "imports",
+    "internal/fastwalk",
+    "internal/gopathwalk",
+    "internal/semver",
   ]
   pruneopts = "UT"
-  revision = "77106db15f689a60e7d4e085d967ac557b918fb2"
+  revision = "d00ac6d27372a4273825635281f2dc360d4be563"
 
 [[projects]]
   digest = "1:c4b907986044810b1542df64faf968e8b1c235113f26b06f16a1c86e0d6a48f8"
@@ -288,6 +297,7 @@
     "github.com/pkg/errors",
     "github.com/spf13/cobra",
     "github.com/stretchr/testify/require",
+    "golang.org/x/tools/go/packages",
     "golang.org/x/tools/imports",
     "gopkg.in/yaml.v2",
   ]
