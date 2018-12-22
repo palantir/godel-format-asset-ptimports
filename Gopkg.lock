@@ -147,6 +147,23 @@
   revision = "6ef6fc2811e260af0641aae25a45881217b3cf3d"
 
 [[projects]]
+  digest = "1:de83b71839efe8bc9559aae0513388fe9a811175ca31f713603a6de84277c974"
+  name = "github.com/palantir/godel-format-asset-ptimports"
+  packages = [
+    "generated_src",
+    "generated_src/internal/github.com/palantir/go-ptimports",
+    "generated_src/internal/github.com/palantir/go-ptimports/cmd",
+    "generated_src/internal/github.com/palantir/go-ptimports/ptimports",
+    "ptimports",
+    "ptimports/config",
+    "ptimports/config/internal/v0",
+    "ptimports/creator",
+  ]
+  pruneopts = "UT"
+  revision = "f3c719db1e20cfcdfdd7ebd45419b19172e1ae5e"
+  version = "v1.1.0"
+
+[[projects]]
   branch = "master"
   digest = "1:56818410a5909a0191d3e7fdacf1b817f14a3c4d7656fe324d72af7132d31577"
   name = "github.com/palantir/godel-format-plugin"
@@ -287,6 +304,14 @@
     "github.com/nmiyake/pkg/gofiles",
     "github.com/palantir/amalgomate/amalgomated",
     "github.com/palantir/go-ptimports",
+    "github.com/palantir/godel-format-asset-ptimports/generated_src",
+    "github.com/palantir/godel-format-asset-ptimports/generated_src/internal/github.com/palantir/go-ptimports",
+    "github.com/palantir/godel-format-asset-ptimports/generated_src/internal/github.com/palantir/go-ptimports/cmd",
+    "github.com/palantir/godel-format-asset-ptimports/generated_src/internal/github.com/palantir/go-ptimports/ptimports",
+    "github.com/palantir/godel-format-asset-ptimports/ptimports",
+    "github.com/palantir/godel-format-asset-ptimports/ptimports/config",
+    "github.com/palantir/godel-format-asset-ptimports/ptimports/config/internal/v0",
+    "github.com/palantir/godel-format-asset-ptimports/ptimports/creator",
     "github.com/palantir/godel-format-plugin/formatplugin",
     "github.com/palantir/godel-format-plugin/formatter",
     "github.com/palantir/godel-format-plugin/formattester",
