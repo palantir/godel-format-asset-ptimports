@@ -95,10 +95,7 @@ func newRunFormatCmd(creatorFn CreatorFunction) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			if err := formatter.Format(args, listFlagVal, projectDirFlagVal, cmd.OutOrStdout()); err != nil {
-				return err
-			}
-			return nil
+			return formatter.Format(args, listFlagVal, projectDirFlagVal, cmd.OutOrStdout())
 		},
 	}
 	runFormatCmd.Flags().StringVar(&configYMLFlagVal, commonCmdConfigYMLFlagName, "", "YML of formatter configuration")
