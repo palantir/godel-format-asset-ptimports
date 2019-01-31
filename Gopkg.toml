@@ -24,7 +24,7 @@ required = ["github.com/palantir/go-ptimports"]
 
 [[constraint]]
   name = "github.com/palantir/go-ptimports"
-  version = "2.4.0"
+  version = "2.6.0"
 
 [prune]
   go-tests = true
