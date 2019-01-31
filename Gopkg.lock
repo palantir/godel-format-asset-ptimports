@@ -101,7 +101,7 @@
   version = "1.3.0"
 
 [[projects]]
-  digest = "1:11504217fb580c9816c102f5e96a37fdc938098a86391198b6657ccb714a67c8"
+  digest = "1:8f9bdc6281b07b087d31f1dd2797d36290e537b92e0976c209bb9c4d4ea44755"
   name = "github.com/palantir/go-ptimports"
   packages = [
     ".",
@@ -109,8 +109,8 @@
     "ptimports",
   ]
   pruneopts = "UT"
-  revision = "10928d65d128cfd32d315171c732fe55dc3f598d"
-  version = "v2.5.0"
+  revision = "ebcb691af6bc8db4989665d5ef37e20d1f7777f3"
+  version = "v2.6.0"
 
 [[projects]]
   branch = "master"
@@ -245,7 +245,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:b7ef5af07b9421973508acd2a12e1d82d948357b0a584962ed5f5dbf6bd90681"
+  digest = "1:86d002f2c67e364e097c5047f517ab38cdef342c3c20be53974c1bfd5b191d30"
   name = "golang.org/x/tools"
   packages = [
     "go/ast/astutil",
@@ -258,10 +258,11 @@
     "imports",
     "internal/fastwalk",
     "internal/gopathwalk",
+    "internal/module",
     "internal/semver",
   ]
   pruneopts = "UT"
-  revision = "d00ac6d27372a4273825635281f2dc360d4be563"
+  revision = "067a2f313b693f3c2d3c0eb328434c91c7fc9b6b"
 
 [[projects]]
   digest = "1:c4b907986044810b1542df64faf968e8b1c235113f26b06f16a1c86e0d6a48f8"
