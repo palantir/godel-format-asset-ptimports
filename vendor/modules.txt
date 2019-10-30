@@ -27,6 +27,10 @@ github.com/nmiyake/pkg/gofiles
 github.com/nwaples/rardecode
 # github.com/palantir/amalgomate v0.0.0-20180301205148-926513e8d502
 github.com/palantir/amalgomate/amalgomated
+# github.com/palantir/go-ptimports v2.6.0+incompatible
+github.com/palantir/go-ptimports
+github.com/palantir/go-ptimports/cmd
+github.com/palantir/go-ptimports/ptimports
 # github.com/palantir/godel v2.0.0-rc5.0.20180330171253-6ef6fc2811e2+incompatible
 github.com/palantir/godel/framework/artifactresolver
 github.com/palantir/godel/framework/builtintasks

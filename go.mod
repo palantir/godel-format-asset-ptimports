@@ -16,6 +16,7 @@ require (
 	github.com/nmiyake/pkg v0.0.0-20170627000939-b64318170fde
 	github.com/nwaples/rardecode v0.0.0-20171029023500-e06696f847ae // indirect
 	github.com/palantir/amalgomate v0.0.0-20180301205148-926513e8d502
+	github.com/palantir/go-ptimports v2.6.0+incompatible
 	github.com/palantir/godel v2.0.0-rc5.0.20180330171253-6ef6fc2811e2+incompatible
 	github.com/palantir/godel-format-plugin v1.1.2-0.20180617004041-c7919e2d2331
 	github.com/palantir/pkg v0.0.0-20180424172112-23395ebeee5d
