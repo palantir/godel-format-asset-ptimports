@@ -16,7 +16,7 @@ package config
 
 import (
 	"github.com/palantir/godel-format-asset-ptimports/ptimports"
-	"github.com/palantir/godel-format-asset-ptimports/ptimports/config/internal/v0"
+	v0 "github.com/palantir/godel-format-asset-ptimports/ptimports/config/internal/v0"
 )
 
 type Ptimports v0.Config
