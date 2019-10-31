@@ -64,7 +64,7 @@ func Run(param Param, projectDir string, verify bool, providedFiles []string, st
 		if err := currFormatter.Format(files, verify, projectDir, formatterOutput); err != nil {
 			if verify {
 				// if in "verify" mode, output has not been streamed, so print to stdout
-				fmt.Fprint(stdout, outputBuf.String())
+				_, _ = fmt.Fprint(stdout, outputBuf.String())
 			}
 			return fmt.Errorf("")
 		}
@@ -73,7 +73,7 @@ func Run(param Param, projectDir string, verify bool, providedFiles []string, st
 	if verify {
 		output := orderedFileLines(outputBuf.String(), files)
 		if len(output) != 0 {
-			fmt.Fprintln(stdout, output)
+			_, _ = fmt.Fprintln(stdout, output)
 			return fmt.Errorf("")
 		}
 	}
