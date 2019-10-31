@@ -21,7 +21,7 @@ import (
 	"github.com/palantir/godel-format-plugin/formatter"
 	"github.com/palantir/pkg/cobracli"
 
-	"github.com/palantir/godel-format-asset-ptimports/generated_src"
+	amalgomatedformatter "github.com/palantir/godel-format-asset-ptimports/generated_src"
 	"github.com/palantir/godel-format-asset-ptimports/ptimports/config"
 	"github.com/palantir/godel-format-asset-ptimports/ptimports/creator"
 )
