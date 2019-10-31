@@ -39,7 +39,7 @@ workflows:
           <<: *executor
           bintray-subject: palantir
           bintray-repo: releases
-          bintray-product: godel-format-plugin
+          bintray-product: godel-format-asset-ptimports
           requires:
             - verify
             - test
