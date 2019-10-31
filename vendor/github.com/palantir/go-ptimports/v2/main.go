@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package amalgomated
+package main
 
 import (
 	"os"
 
-	"github.com/palantir/godel-format-asset-ptimports/generated_src/internal/github.com/palantir/go-ptimports/cmd"
+	"github.com/palantir/go-ptimports/v2/cmd"
 )
 
-func AmalgomatedMain() {
+func main() {
 	os.Exit(cmd.Execute())
 }

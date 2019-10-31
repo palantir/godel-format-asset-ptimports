@@ -17,5 +17,5 @@
 package tools
 
 import (
-	_ "github.com/palantir/go-ptimports"
+	_ "github.com/palantir/go-ptimports/v2"
 )
