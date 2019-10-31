@@ -1,5 +1,5 @@
 <p align="right">
-<a href="https://autorelease.general.dmz.palantir.tech/palantir/godel-okgo-asset-ptipmorts"><img src="https://img.shields.io/badge/Perform%20an-Autorelease-success.svg" alt="Autorelease"></a>
+<a href="https://autorelease.general.dmz.palantir.tech/palantir/godel-format-asset-ptimports"><img src="https://img.shields.io/badge/Perform%20an-Autorelease-success.svg" alt="Autorelease"></a>
 </p>
 
 godel-okgo-asset-ptipmorts
