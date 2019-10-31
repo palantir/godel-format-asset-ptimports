@@ -3,7 +3,7 @@ plugins:
   - https://palantir.bintray.com/releases/{{GroupPath}}/{{Product}}/{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz
   plugins:
   - locator:
-      id: com.palantir:amalgomate-plugin:1.3.0
+      id: com.palantir.godel-amalgomate-plugin:amalgomate-plugin:1.1.0
   - locator:
       id: com.palantir.godel-mod-plugin:mod-plugin:1.0.0
       checksums:
