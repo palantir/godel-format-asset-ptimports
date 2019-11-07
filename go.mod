@@ -6,7 +6,7 @@ require (
 	github.com/kardianos/osext v0.0.0-20170510131534-ae77be60afb1
 	github.com/nmiyake/pkg v0.0.0-20170627000939-b64318170fde
 	github.com/palantir/amalgomate v1.5.0
-	github.com/palantir/go-ptimports/v2 v2.8.0
+	github.com/palantir/go-ptimports/v2 v2.9.0
 	github.com/palantir/godel v2.14.0+incompatible
 	github.com/palantir/godel-format-plugin v1.4.0
 	github.com/palantir/pkg v0.0.0-20190110173045-b2b34217111b
