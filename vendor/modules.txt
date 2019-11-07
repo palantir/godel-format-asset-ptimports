@@ -27,7 +27,7 @@ github.com/nmiyake/pkg/gofiles
 github.com/nwaples/rardecode
 # github.com/palantir/amalgomate v1.5.0
 github.com/palantir/amalgomate/amalgomated
-# github.com/palantir/go-ptimports/v2 v2.8.0
+# github.com/palantir/go-ptimports/v2 v2.9.0
 github.com/palantir/go-ptimports/v2
 github.com/palantir/go-ptimports/v2/cmd
 github.com/palantir/go-ptimports/v2/ptimports
