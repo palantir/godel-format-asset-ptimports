@@ -12,24 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package config
+package artifactresolver
 
 import (
-	"github.com/palantir/godel/v2/pkg/versionedconfig"
-	"github.com/pkg/errors"
+	"fmt"
 
-	v0 "github.com/palantir/godel-format-asset-ptimports/ptimports/config/internal/v0"
+	"github.com/palantir/godel/v2/pkg/osarch"
 )
 
-func UpgradeConfig(cfgBytes []byte) ([]byte, error) {
-	version, err := versionedconfig.ConfigVersion(cfgBytes)
-	if err != nil {
-		return nil, err
-	}
-	switch version {
-	case "", "0":
-		return v0.UpgradeConfig(cfgBytes)
-	default:
-		return nil, errors.Errorf("unsupported version: %s", version)
-	}
+type LocatorWithResolverParam struct {
+	LocatorWithChecksums LocatorParam
+	Resolver             Resolver
+}
+
+type LocatorParam struct {
+	Locator
+	Checksums map[osarch.OSArch]string
+}
+
+type Locator struct {
+	Group   string
+	Product string
+	Version string
+}
+
+func (l Locator) String() string {
+	return fmt.Sprintf("%s:%s", l.GroupAndProductString(), l.Version)
+}
+
+func (l Locator) GroupAndProductString() string {
+	return fmt.Sprintf("%s:%s", l.Group, l.Product)
 }
