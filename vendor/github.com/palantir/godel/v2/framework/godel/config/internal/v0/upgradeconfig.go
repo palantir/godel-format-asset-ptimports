@@ -12,24 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package config
+package v0
 
 import (
-	"github.com/palantir/godel/v2/pkg/versionedconfig"
 	"github.com/pkg/errors"
-
-	v0 "github.com/palantir/godel-format-asset-ptimports/ptimports/config/internal/v0"
+	"gopkg.in/yaml.v2"
 )
 
 func UpgradeConfig(cfgBytes []byte) ([]byte, error) {
-	version, err := versionedconfig.ConfigVersion(cfgBytes)
-	if err != nil {
-		return nil, err
+	var cfg GodelConfig
+	if err := yaml.Unmarshal(cfgBytes, &cfg); err != nil {
+		return nil, errors.Wrapf(err, "failed to unmarshal godel v0 configuration")
 	}
-	switch version {
-	case "", "0":
-		return v0.UpgradeConfig(cfgBytes)
-	default:
-		return nil, errors.Errorf("unsupported version: %s", version)
-	}
+	return cfgBytes, nil
 }

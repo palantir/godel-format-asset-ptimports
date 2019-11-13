@@ -20,7 +20,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/palantir/godel/framework/pluginapi"
+	"github.com/palantir/godel/v2/framework/pluginapi"
 	"github.com/pkg/errors"
 )
 
