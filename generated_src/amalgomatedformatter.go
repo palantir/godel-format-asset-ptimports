@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sort"
 
-	ptimports "github.com/palantir/godel-format-asset-ptimports/generated_src/internal/github.com/palantir/go-ptimports/v2"
+	ptimports "."
 )
 
 var programs = map[string]func(){"ptimports": func() {
