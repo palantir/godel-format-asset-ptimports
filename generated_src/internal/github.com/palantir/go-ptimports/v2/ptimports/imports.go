@@ -81,13 +81,13 @@ func ProcessFileFromInput(filename string, in io.Reader, list, write bool, optio
 
 type Options struct {
 	// if true, converts single-line imports into import blocks
-	Refactor	bool
+	Refactor bool
 	// if true, runs the "gofmt simplify" operation on code
-	Simplify	bool
+	Simplify bool
 	// if true, does not add or remove imports
-	FormatOnly	bool
+	FormatOnly bool
 	// prefixes to use for goimports operation
-	LocalPrefixes	[]string
+	LocalPrefixes []string
 }
 
 // Process formats and adjusts imports for the provided file.
@@ -97,15 +97,15 @@ func Process(filename string, src []byte, options *Options) ([]byte, error) {
 	}
 	importsOptions := &imports.Options{
 		// these values are the default for imports.Process
-		Comments:	true,
-		TabIndent:	true,
-		TabWidth:	8,
+		Comments:  true,
+		TabIndent: true,
+		TabWidth:  8,
 		// use provided formatOnly value
-		FormatOnly:	options.FormatOnly,
+		FormatOnly: options.FormatOnly,
 	}
 
 	// run goimports on output. Do this before refactoring so that the refactor operation has the most up-to-date
-
+	// imports (the Process operation may add or remove imports).
 	imports.LocalPrefix = strings.Join(options.LocalPrefixes, ",")
 	out, err := imports.Process(filename, src, importsOptions)
 	if err != nil {
@@ -331,7 +331,7 @@ func matchSpace(orig []byte, src []byte) []byte {
 		} else {
 			src = nil
 		}
-		if len(line) > 0 && line[0] != '\n' {	// not blank
+		if len(line) > 0 && line[0] != '\n' { // not blank
 			_, _ = b.Write(indent)
 		}
 		_, _ = b.Write(line)
