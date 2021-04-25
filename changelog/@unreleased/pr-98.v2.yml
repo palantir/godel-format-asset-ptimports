@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: Updates module dependencies.
+  links:
+  - https://github.com/palantir/godel-format-asset-ptimports/pull/98
