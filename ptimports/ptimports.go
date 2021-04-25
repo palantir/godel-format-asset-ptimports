@@ -15,13 +15,13 @@
 package ptimports
 
 import (
+	"encoding/json"
 	"io"
 	"os"
 	"os/exec"
 
 	"github.com/palantir/amalgomate/amalgomated"
 	"github.com/pkg/errors"
-	"golang.org/x/tools/go/packages"
 )
 
 const TypeName = "ptimports"
@@ -56,7 +56,7 @@ func (f *Formatter) Format(files []string, list bool, projectDir string, stdout 
 		args = append(args, "-r")
 	}
 	if f.SeparateProjectImports {
-		projectPkgPath, err := projectImportPath(projectDir)
+		projectPkgPath, err := moduleImportPath(projectDir)
 		if err != nil {
 			return err
 		}
@@ -75,15 +75,19 @@ func (f *Formatter) Format(files []string, list bool, projectDir string, stdout 
 	return nil
 }
 
-func projectImportPath(projectDir string) (string, error) {
-	pkgs, err := packages.Load(&packages.Config{
-		Dir: projectDir,
-	}, "")
+func moduleImportPath(projectDir string) (string, error) {
+	cmd := exec.Command("go", "list", "-m", "-mod=readonly", "-json")
+	cmd.Dir = projectDir
+	output, err := cmd.CombinedOutput()
 	if err != nil {
-		return "", errors.Wrapf(err, "failed to load packages in %s", projectDir)
+		return "", errors.Wrapf(err, "%v failed with output: %q", cmd.Args, string(output))
 	}
-	if len(pkgs) == 0 {
-		return "", errors.Errorf("no packages found in %s", projectDir)
+	modJSON := struct {
+		Path string
+		Dir  string
+	}{}
+	if err := json.Unmarshal(output, &modJSON); err != nil {
+		return "", errors.Wrapf(err, "failed to unmarshal output of %v as JSON", cmd.Args)
 	}
-	return pkgs[0].PkgPath, nil
+	return modJSON.Path, nil
 }
