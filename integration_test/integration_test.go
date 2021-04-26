@@ -26,8 +26,8 @@ import (
 )
 
 const (
-	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.0.0"
-	formatPluginResolver = "https://palantir.bintray.com/releases/{{GroupPath}}/{{Product}}/{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz"
+	formatPluginLocator  = "com.palantir.godel-format-plugin:format-plugin:1.8.0"
+	formatPluginResolver = "https://github.com/{{index GroupParts 1}}/{{index GroupParts 2}}/releases/download/v{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz"
 )
 
 func TestFormat(t *testing.T) {
