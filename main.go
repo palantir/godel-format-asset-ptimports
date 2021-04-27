@@ -18,12 +18,11 @@ import (
 	"os"
 
 	"github.com/palantir/amalgomate/amalgomated"
-	"github.com/palantir/godel-format-plugin/formatter"
-	"github.com/palantir/pkg/cobracli"
-
 	amalgomatedformatter "github.com/palantir/godel-format-asset-ptimports/generated_src"
 	"github.com/palantir/godel-format-asset-ptimports/ptimports/config"
 	"github.com/palantir/godel-format-asset-ptimports/ptimports/creator"
+	"github.com/palantir/godel-format-plugin/formatter"
+	"github.com/palantir/pkg/cobracli"
 )
 
 const assetName = "ptimports"

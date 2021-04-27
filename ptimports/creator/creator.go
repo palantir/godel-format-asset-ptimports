@@ -15,13 +15,12 @@
 package creator
 
 import (
+	"github.com/palantir/godel-format-asset-ptimports/ptimports"
+	"github.com/palantir/godel-format-asset-ptimports/ptimports/config"
 	"github.com/palantir/godel-format-plugin/formatplugin"
 	"github.com/palantir/godel-format-plugin/formatter"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
-
-	"github.com/palantir/godel-format-asset-ptimports/ptimports"
-	"github.com/palantir/godel-format-asset-ptimports/ptimports/config"
 )
 
 func Ptimports() formatter.Creator {
