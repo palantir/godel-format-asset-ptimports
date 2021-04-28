@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/nmiyake/pkg/gofiles v1.0.2
 	github.com/palantir/amalgomate v1.5.0
-	github.com/palantir/go-ptimports/v2 v2.9.0
+	github.com/palantir/go-ptimports/v2 v2.10.0
 	github.com/palantir/godel-format-plugin v1.5.0
 	github.com/palantir/godel/v2 v2.36.0
 	github.com/palantir/pkg/cobracli v1.0.1

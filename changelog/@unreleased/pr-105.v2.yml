@@ -1,0 +1,9 @@
+type: improvement
+improvement:
+  description: |-
+    Updates go-ptimports module dependency to v2.10.0
+
+    Includes fix for panic when processing files with 'import "C"'
+    directive without comments.
+  links:
+  - https://github.com/palantir/godel-format-asset-ptimports/pull/105
