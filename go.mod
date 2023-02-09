@@ -1,6 +1,6 @@
 module github.com/palantir/godel-format-asset-ptimports
 
-go 1.19
+go 1.20
 
 require (
 	github.com/nmiyake/pkg/gofiles v1.0.2
