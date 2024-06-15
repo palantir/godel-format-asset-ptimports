@@ -80,7 +80,7 @@ github.com/palantir/go-ptimports/v2/ptimports
 github.com/palantir/godel-format-plugin/formatplugin
 github.com/palantir/godel-format-plugin/formatter
 github.com/palantir/godel-format-plugin/formattester
-# github.com/palantir/godel/v2 v2.109.0
+# github.com/palantir/godel/v2 v2.110.0
 ## explicit; go 1.21
 github.com/palantir/godel/v2/framework/artifactresolver
 github.com/palantir/godel/v2/framework/builtintasks
@@ -137,7 +137,7 @@ github.com/rogpeppe/go-internal/internal/syscall/windows
 github.com/rogpeppe/go-internal/internal/syscall/windows/sysdll
 github.com/rogpeppe/go-internal/lockedfile
 github.com/rogpeppe/go-internal/lockedfile/internal/filelock
-# github.com/spf13/cobra v1.8.0
+# github.com/spf13/cobra v1.8.1
 ## explicit; go 1.15
 github.com/spf13/cobra
 # github.com/spf13/pflag v1.0.5
