@@ -81,13 +81,17 @@ import (
 				Name: "groups imports",
 				Specs: []gofiles.GoFileSpec{
 					{
+						RelPath: "go.mod",
+						Src:     "module github.com/ptimports-test",
+					},
+					{
 						RelPath: "foo.go",
 						Src: `package foo
 
 import _ "fmt"
 import _ "github.com/org/repo"
-import _ "{{index . "bar/bar.go"}}"
-import _ "{{index . "baz/baz.go"}}"
+import _ "github.com/ptimports-test/bar"
+import _ "github.com/ptimports-test/baz"
 `,
 					},
 					{
@@ -121,13 +125,17 @@ import (
 				Name: "groups imports using project path when specified in config",
 				Specs: []gofiles.GoFileSpec{
 					{
+						RelPath: "go.mod",
+						Src:     "module github.com/ptimports-test",
+					},
+					{
 						RelPath: "foo.go",
 						Src: `package foo
 
 import _ "fmt"
 import _ "github.com/org/repo"
-import _ "{{index . "bar/bar.go"}}"
-import _ "{{index . "baz/baz.go"}}"
+import _ "github.com/ptimports-test/bar"
+import _ "github.com/ptimports-test/baz"
 `,
 					},
 					{
