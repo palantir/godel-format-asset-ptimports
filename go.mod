@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/nmiyake/pkg/gofiles v1.2.0
-	github.com/palantir/amalgomate v1.43.0
+	github.com/palantir/amalgomate v1.44.0
 	github.com/palantir/go-ptimports/v2 v2.10.0
 	github.com/palantir/godel-format-plugin v1.5.0
 	github.com/palantir/godel/v2 v2.119.0
