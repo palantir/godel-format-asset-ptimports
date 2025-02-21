@@ -193,8 +193,8 @@ github.com/palantir/go-ptimports/v2 v2.10.0/go.mod h1:BhZDs/eL/RvgShGCPEG+vKxZJu
 github.com/palantir/godel-format-plugin v1.5.0 h1:PtDOW1/WSgiJmjl0lPM+PWA/nMbz3hPJCK/mf03hiyI=
 github.com/palantir/godel-format-plugin v1.5.0/go.mod h1:FKZvdIfM0/QKaNUouCDuMHQ8FwshQoZ+yiYamrmbYzY=
 github.com/palantir/godel/v2 v2.22.0/go.mod h1:Da/HS4lwo4j/v/PpmpJxgfamjg4Jwp6qPSnPzAr0Ppk=
-github.com/palantir/godel/v2 v2.125.0 h1:iS5aG531dFqM+mYzrHh3fYkRNaVF3BVMhcd4tt35ftg=
-github.com/palantir/godel/v2 v2.125.0/go.mod h1:KjjoQk85c/njcb6dSgxpBn+mdknZ9VOCU/0OwPawJ8c=
+github.com/palantir/godel/v2 v2.126.0 h1:Z9Gtp+n0BP5nF3aWPWPSx/9vHgDxYWGELCbP6zNlga0=
+github.com/palantir/godel/v2 v2.126.0/go.mod h1:9+Tbx3I1E8uaJLOyb24MgEQmHuETNlpP6qGZgC7oVlk=
 github.com/palantir/pkg v0.0.0-20181230161202-d12f4064ff8e/go.mod h1:jLbXCfQ4HRrT5RRj5JuKc1ucQeridBMyRCpmzRtUYMY=
 github.com/palantir/pkg v0.0.0-20190110173045-b2b34217111b/go.mod h1:jLbXCfQ4HRrT5RRj5JuKc1ucQeridBMyRCpmzRtUYMY=
 github.com/palantir/pkg v1.0.1/go.mod h1:Eo6Jl0UXfT+65sLXJOcU9duu0WPvKsWFXCb0dE5VWZs=
