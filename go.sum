@@ -185,8 +185,8 @@ github.com/nwaples/rardecode v0.0.0-20171029023500-e06696f847ae/go.mod h1:5DzqNK
 github.com/nwaples/rardecode v1.1.0 h1:vSxaY8vQhOcVr4mm5e8XllHWTiM4JF507A0Katqw7MQ=
 github.com/nwaples/rardecode v1.1.0/go.mod h1:5DzqNKiOdpKKBH87u8VlvAnPZMXcGRhxWkRpHbbfGS0=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
-github.com/palantir/amalgomate v1.48.0 h1:ezHE57n9M9Mkuntbesiuar430u3ts11EaJfdt45gb2k=
-github.com/palantir/amalgomate v1.48.0/go.mod h1:1eHuvCUfJoyvV3TpqsYN4/2hZhIDHIk5x4qQD2YSq7I=
+github.com/palantir/amalgomate v1.49.0 h1:SeDGCXYf72jRwtVtdVVGM4N68OYDRW+nstX5UFk/xCU=
+github.com/palantir/amalgomate v1.49.0/go.mod h1:V/9RfXDOpjyp4M+n0CNl4gzquToAKXAfPE0kPHuLZ2Q=
 github.com/palantir/distgo v1.2.0/go.mod h1:jOCcoLD92T/eN4VfRxczaDIWsqyy1f0yQZMFOt3cJCw=
 github.com/palantir/go-ptimports/v2 v2.10.0 h1:foAjyLulrcRc89Vto7EwniJJDiQT8oiG8CsLAH9h8HE=
 github.com/palantir/go-ptimports/v2 v2.10.0/go.mod h1:BhZDs/eL/RvgShGCPEG+vKxZJug+geeGEppwLjedxNI=
