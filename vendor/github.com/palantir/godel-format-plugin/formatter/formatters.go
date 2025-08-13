@@ -17,9 +17,8 @@ package formatter
 import (
 	"sort"
 
-	"github.com/pkg/errors"
-
 	"github.com/palantir/godel-format-plugin/formatplugin"
+	"github.com/pkg/errors"
 )
 
 type CreatorFunction func(cfgYML []byte) (formatplugin.Formatter, error)
