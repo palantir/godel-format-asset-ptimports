@@ -78,8 +78,8 @@ github.com/palantir/amalgomate/amalgomated
 github.com/palantir/go-ptimports/v2
 github.com/palantir/go-ptimports/v2/cmd
 github.com/palantir/go-ptimports/v2/ptimports
-# github.com/palantir/godel-format-plugin v1.52.0
-## explicit; go 1.24.0
+# github.com/palantir/godel-format-plugin v1.53.0
+## explicit; go 1.25.0
 github.com/palantir/godel-format-plugin/formatplugin
 github.com/palantir/godel-format-plugin/formatter
 github.com/palantir/godel-format-plugin/formattester
