@@ -83,7 +83,7 @@ github.com/palantir/go-ptimports/v2/ptimports
 github.com/palantir/godel-format-plugin/formatplugin
 github.com/palantir/godel-format-plugin/formatter
 github.com/palantir/godel-format-plugin/formattester
-# github.com/palantir/godel/v2 v2.135.0
+# github.com/palantir/godel/v2 v2.136.0
 ## explicit; go 1.24.0
 github.com/palantir/godel/v2/framework/artifactresolver
 github.com/palantir/godel/v2/framework/builtintasks
