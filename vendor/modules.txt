@@ -32,7 +32,7 @@ github.com/golang/snappy
 # github.com/inconshreveable/mousetrap v1.1.0
 ## explicit; go 1.18
 github.com/inconshreveable/mousetrap
-# github.com/klauspost/compress v1.18.3
+# github.com/klauspost/compress v1.18.4
 ## explicit; go 1.23
 github.com/klauspost/compress
 github.com/klauspost/compress/flate
@@ -88,7 +88,7 @@ github.com/palantir/go-ptimports/v2/ptimports
 github.com/palantir/godel-format-plugin/formatplugin
 github.com/palantir/godel-format-plugin/formatter
 github.com/palantir/godel-format-plugin/formattester
-# github.com/palantir/godel/v2 v2.147.0
+# github.com/palantir/godel/v2 v2.149.0
 ## explicit; go 1.25.0
 github.com/palantir/godel/v2/framework/artifactresolver
 github.com/palantir/godel/v2/framework/builtintasks
