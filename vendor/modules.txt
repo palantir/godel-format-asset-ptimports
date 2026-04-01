@@ -89,7 +89,7 @@ github.com/palantir/go-ptimports/v2/ptimports
 github.com/palantir/godel-format-plugin/formatplugin
 github.com/palantir/godel-format-plugin/formatter
 github.com/palantir/godel-format-plugin/formattester
-# github.com/palantir/godel/v2 v2.154.0
+# github.com/palantir/godel/v2 v2.153.0
 ## explicit; go 1.26.0
 github.com/palantir/godel/v2/framework/artifactresolver
 github.com/palantir/godel/v2/framework/builtintasks
@@ -130,7 +130,7 @@ github.com/palantir/pkg/pkgpath
 # github.com/palantir/pkg/specdir v1.3.0
 ## explicit; go 1.25.0
 github.com/palantir/pkg/specdir
-# github.com/pierrec/lz4/v4 v4.1.26
+# github.com/pierrec/lz4/v4 v4.1.25
 ## explicit; go 1.17
 github.com/pierrec/lz4/v4
 github.com/pierrec/lz4/v4/internal/lz4block
