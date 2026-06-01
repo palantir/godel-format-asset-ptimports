@@ -16,7 +16,6 @@ package formattester
 
 import (
 	"bytes"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -64,7 +63,7 @@ func RunAssetFormatTest(t *testing.T,
 	require.NoError(t, err)
 
 	for i, tc := range testCases {
-		projectDir, err := ioutil.TempDir(tmpDir, "")
+		projectDir, err := os.MkdirTemp(tmpDir, "")
 		require.NoError(t, err)
 
 		var sortedKeys []string
@@ -76,7 +75,7 @@ func RunAssetFormatTest(t *testing.T,
 		for _, k := range sortedKeys {
 			err = os.MkdirAll(path.Dir(path.Join(projectDir, k)), 0755)
 			require.NoError(t, err)
-			err = ioutil.WriteFile(path.Join(projectDir, k), []byte(tc.ConfigFiles[k]), 0644)
+			err = os.WriteFile(path.Join(projectDir, k), []byte(tc.ConfigFiles[k]), 0644)
 			require.NoError(t, err)
 		}
 
@@ -132,7 +131,7 @@ func RunAssetFormatTest(t *testing.T,
 			sort.Strings(sortedKeys)
 			for _, k := range sortedKeys {
 				wantContent := wantFiles[k]
-				bytes, err := ioutil.ReadFile(path.Join(projectDir, k))
+				bytes, err := os.ReadFile(path.Join(projectDir, k))
 				require.NoError(t, err, "Case %d: %s", i, tc.Name)
 				got := string(bytes)
 				assert.Equal(t, wantContent, got, "Case %d: %s\nGot:\n%s", i, tc.Name, got)

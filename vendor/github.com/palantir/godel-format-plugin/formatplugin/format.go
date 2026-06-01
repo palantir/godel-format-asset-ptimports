@@ -85,7 +85,7 @@ func Run(param Param, projectDir string, verify bool, providedFiles []string, st
 // '\n' character.
 func orderedFileLines(in string, files []string) string {
 	seen := make(map[string]struct{})
-	for _, currLine := range strings.Split(in, "\n") {
+	for currLine := range strings.SplitSeq(in, "\n") {
 		seen[currLine] = struct{}{}
 	}
 	var outLines []string
