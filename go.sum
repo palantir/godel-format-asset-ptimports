@@ -60,8 +60,8 @@ github.com/palantir/amalgomate v1.56.0 h1:wgdb/kkkXN7pa5OIQguMJQOGLc3oCuX9w/ORet
 github.com/palantir/amalgomate v1.56.0/go.mod h1:5LixZUuEIu6Tx6lUO2N8S+JK0QuS746VlDRhQ6VDTgs=
 github.com/palantir/go-ptimports/v2 v2.48.0 h1:Y2Pl7NiNQM/Eeob9g9shOjZxcqc5BJehHgjg8l4uRXc=
 github.com/palantir/go-ptimports/v2 v2.48.0/go.mod h1:76eine7hp8I5Ofp1kbrMIUTt7uJb0SHsEK6ZY6Wygec=
-github.com/palantir/godel-format-plugin v1.57.0 h1:wwvxOrhJLM6npqx1aR0+hR2oRaGydJommoKDhjkGLB8=
-github.com/palantir/godel-format-plugin v1.57.0/go.mod h1:uTe0P9tIjxQqmnJuvCpl8Om5vOStLbtkPF30+EvFcTg=
+github.com/palantir/godel-format-plugin v1.58.0 h1:Si5aVCkd24nyAH2waF1dxvgC+Sv2wj7yXQSmisfYxbo=
+github.com/palantir/godel-format-plugin v1.58.0/go.mod h1:9uu64Z6o6G1bl0XThcR686n/BDg9ThGiXZsFbe8BZEE=
 github.com/palantir/godel/v2 v2.156.0 h1:UCTVMPwTEd6JebzGvTpbzfNIUzMUE9y0y9RQkcmHO6A=
 github.com/palantir/godel/v2 v2.156.0/go.mod h1:TRODDy1+PrCYqO0K0uGo7YCHE721gVI4IkjlLI8ot9o=
 github.com/palantir/pkg v1.1.0 h1:0EhrSUP8oeeh3MUvk7V/UU7WmsN1UiJNTvNj0sN9Cpo=
