@@ -58,8 +58,8 @@ github.com/nwaples/rardecode v1.1.3 h1:cWCaZwfM5H7nAD6PyEdcVnczzV8i/JtotnyW/dD9l
 github.com/nwaples/rardecode v1.1.3/go.mod h1:5DzqNKiOdpKKBH87u8VlvAnPZMXcGRhxWkRpHbbfGS0=
 github.com/palantir/amalgomate v1.57.0 h1:Me9V4SMnFg/MJb0eUtI2676fcBFiG9llxGbZerYl2S8=
 github.com/palantir/amalgomate v1.57.0/go.mod h1:VaK1OuPzQNDEtECASvSaKuQvZ2MmjUR0s7mqGg4vqDU=
-github.com/palantir/go-ptimports/v2 v2.48.0 h1:Y2Pl7NiNQM/Eeob9g9shOjZxcqc5BJehHgjg8l4uRXc=
-github.com/palantir/go-ptimports/v2 v2.48.0/go.mod h1:76eine7hp8I5Ofp1kbrMIUTt7uJb0SHsEK6ZY6Wygec=
+github.com/palantir/go-ptimports/v2 v2.50.0 h1:3AsHcUFPvn4JxTNPcR4vPXKzh2DIJNVgLfeR7Svh1Cc=
+github.com/palantir/go-ptimports/v2 v2.50.0/go.mod h1:BLQ8aQyc4YldGtsIy7qhI3MPgiZ7Iea1FkkpyZl3WH4=
 github.com/palantir/godel-format-plugin v1.58.0 h1:Si5aVCkd24nyAH2waF1dxvgC+Sv2wj7yXQSmisfYxbo=
 github.com/palantir/godel-format-plugin v1.58.0/go.mod h1:9uu64Z6o6G1bl0XThcR686n/BDg9ThGiXZsFbe8BZEE=
 github.com/palantir/godel/v2 v2.156.0 h1:UCTVMPwTEd6JebzGvTpbzfNIUzMUE9y0y9RQkcmHO6A=
