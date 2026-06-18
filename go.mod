@@ -9,12 +9,12 @@ require (
 	github.com/palantir/amalgomate v1.57.0
 	github.com/palantir/go-ptimports/v2 v2.48.0
 	github.com/palantir/godel-format-plugin v1.58.0
-	github.com/palantir/godel/v2 v2.156.0
+	github.com/palantir/godel/v2 v2.157.0
 	github.com/palantir/pkg/cobracli v1.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.11.1
-	golang.org/x/tools v0.45.0
+	golang.org/x/tools v0.46.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
