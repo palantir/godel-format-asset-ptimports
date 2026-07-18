@@ -9,7 +9,7 @@ require (
 	github.com/palantir/amalgomate v1.58.0
 	github.com/palantir/go-ptimports/v2 v2.48.0
 	github.com/palantir/godel-format-plugin v1.59.0
-	github.com/palantir/godel/v2 v2.158.0
+	github.com/palantir/godel/v2 v2.159.0
 	github.com/palantir/pkg/cobracli v1.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.10.2
