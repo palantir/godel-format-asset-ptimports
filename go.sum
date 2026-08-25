@@ -60,8 +60,8 @@ github.com/palantir/go-ptimports/v2 v2.53.0 h1:Y+CI8DpQxRBGleiKEBbQ8z+jvLoalc7dk
 github.com/palantir/go-ptimports/v2 v2.53.0/go.mod h1:esEjYPtSofXWyUpS6gcr0y4NvEaxhf4g8M+6BPNjZoA=
 github.com/palantir/godel-format-plugin v1.62.0 h1:VIsaJT9zRsoU6B08MH9oKXwNNob/MoN/rAJ03GH1GuU=
 github.com/palantir/godel-format-plugin v1.62.0/go.mod h1:dJAwZfZjLWVOxrFjZHgNoyZJRJZKfIeNNOrW14At0LI=
-github.com/palantir/godel/v2 v2.174.0 h1:6YjSkao6U9hi27OIveV9DFf2vp38UboHcCjRgA4/0yY=
-github.com/palantir/godel/v2 v2.174.0/go.mod h1:+o9c3N7lcQ2YJQRRRfZkeYAYOh5fCEZIPTM3jMLybi4=
+github.com/palantir/godel/v2 v2.175.0 h1:3XTgtFov+QC2KkTcBSpRt2uvrqEE/NNXl4qNWqwTPlg=
+github.com/palantir/godel/v2 v2.175.0/go.mod h1:+o9c3N7lcQ2YJQRRRfZkeYAYOh5fCEZIPTM3jMLybi4=
 github.com/palantir/pkg v1.1.0 h1:0EhrSUP8oeeh3MUvk7V/UU7WmsN1UiJNTvNj0sN9Cpo=
 github.com/palantir/pkg v1.1.0/go.mod h1:KC9srP/9ssWRxBxFCIqhUGC4Jt7OJkWRz0Iqehup1/c=
 github.com/palantir/pkg/cobracli v1.3.0 h1:PZhMQGNA3Ij1am+hDTzYhzLtgYgiKNUnpK7kmRADDWs=
