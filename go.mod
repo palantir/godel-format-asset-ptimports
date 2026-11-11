@@ -8,7 +8,7 @@ require (
 	github.com/nmiyake/pkg/gofiles v1.2.0
 	github.com/palantir/amalgomate v1.62.0
 	github.com/palantir/go-ptimports/v2 v2.58.0
-	github.com/palantir/godel-format-plugin v1.65.0
+	github.com/palantir/godel-format-plugin v1.66.0
 	github.com/palantir/godel/v2 v2.204.0
 	github.com/palantir/pkg/cobracli v1.4.0
 	github.com/pkg/errors v0.9.1
